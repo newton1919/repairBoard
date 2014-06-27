@@ -1,0 +1,28 @@
+{% extends 'base/_base.html' %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% block title %}{% trans "Company-overview" %}{% endblock %}
+ 
+{% block headerCssBlock %}
+  <link rel="stylesheet" href="{% static 'css/summernote.css' %}" >
+{% endblock %}
+
+
+{% block headerJsBlock %}
+  <script src="{% static 'js/summernote.min.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block mainPanelTitle %}
+<ol class="breadcrumb breadcrumb_reset inline-reset">
+  <li><a href="/admin/index">Company</a></li>
+  <li class="active">Overview</li>
+</ol>
+<div class="btn btn-warning btn-sm btn-save inline_reset pull-right">save</div>
+{% endblock %}
+{% block main %}
+    <div id="summernote">
+      {{desc}}
+    </div>
+<!--   	{% include 'admin/_edit.html' %} -->
+    
+{% endblock %}

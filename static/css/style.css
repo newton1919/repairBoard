@@ -1,0 +1,97 @@
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+html, body {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height:100%;
+}
+
+.sidenav .list-group-item{
+	border-width:0px !important;
+	border-style:none !important;
+}
+
+.headimg {
+	width:100%;
+	height:100px;
+}
+
+.headcol {
+	padding:5px 5px 2px 5px;
+}
+
+.mainPanel {
+	min-height:600px;
+}
+/*----------------------------------------------------------------------------------- */
+/*  Document Setup */
+/*----------------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px; }
+
+::-webkit-scrollbar-thumb {
+  background: #bbbbbb;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 5px; }
+
+::-webkit-scrollbar-track {
+  background: #dddddd;
+  background: rgba(0, 0, 0, 0.05); 
+}
+/*----------------------------------------------------------------------------------- */
+/*  Login 1 */
+/*----------------------------------------------------------------------------------- */
+.login-wraper {
+  padding: 0;
+  background: url(../images/login-blurry-bg.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative; 
+  height:100%;
+}
+.login-container {
+	background-color: white;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 40px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin-bottom: 15px;
+    width: 380px;
+    height: 380px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -190px 0 0 -190px;
+    opacity: 0;
+    -webkit-transition: all 1s 0.5s;
+    -moz-transition: all 1s 0.5s;
+    transition: all 1s 0.5s; 
+}
+.login-container label {
+	font-weight:normal !important;
+	font-size:16px;
+	color: rgb(0, 122, 255);
+}
+
+.login-container.active {
+	opacity: 1; 
+}
+.login-container input.form-control {
+    height: 48px;
+    font-size: 15px;
+    box-shadow: none;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid #d6d6d6;
+    padding-left: 0;
+    padding-right: 0;
+    background: transparent !important; 
+}
+/*----------------------------------------------------------------------------------- */
+/*  Login 1 end*/
+/*----------------------------------------------------------------------------------- */
+.breadcrumb_reset {
+	margin-bottom:0px;
+	background-color:transparent;
+}
+.inline-reset{
+	display:inline;
+}

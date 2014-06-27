@@ -1,0 +1,16 @@
+<form id="{% block form_id %}{% endblock %}"
+        name="{% block form_name %}{% endblock %}"
+        autocomplete="{% block autocomplete %}{% endblock %}"
+        class="{% block form_class %}{% endblock %}"
+        action="{% block form_action %}{% endblock %}"
+        method="{% block form-method %}POST{% endblock %}"
+>{% csrf_token %}
+<div>
+    {% block form-body %}
+        <fieldset>
+        {% include "base/_form_fields.html" %}
+        </fieldset>
+    {% endblock %}
+    <div class="modal-footer">{% block modal-footer %}{% endblock %}</div>
+</div>
+</form>
