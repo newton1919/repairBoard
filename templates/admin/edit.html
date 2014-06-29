@@ -13,11 +13,22 @@
 {% endblock %}
 
 {% block mainPanelTitle %}
-<ol class="breadcrumb breadcrumb_reset inline-reset">
-  <li><a href="/admin/index">Company</a></li>
-  <li class="active">Overview</li>
-</ol>
-<div class="btn btn-warning btn-sm btn-save inline_reset pull-right">save</div>
+<div class="container-fuild">
+	<div class="row">
+	<div class="col-lg-10">
+	<ol class="breadcrumb breadcrumb_reset">
+	  <li><a href="/admin/company/index">Company</a></li>
+	  <li class="active">Update</li>
+	</ol>
+	</div>
+	<div class="col-lg-2">
+	  <div class="btn-group">
+	    <a href="{% url 'admin:company_index' %}" type="button" class="btn btn-default btn-sm btn-cacel">cacel</a>
+		<button type="button" id="{{id}}" class="btn btn-primary btn-sm btn-save">save</button>
+	  </div>
+	</div>
+	</div>
+</div>
 {% endblock %}
 {% block main %}
     <div id="summernote">
