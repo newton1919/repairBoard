@@ -5,15 +5,44 @@ if ($('#summernote').length) {
         toolbar: [['style', ['style']], ['style', ['bold', 'italic', 'underline', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['insert', ['picture', 'link']], ['table', ['table']], ['fullscreen', ['fullscreen']]]
       });
 }
+/*
+# =============================================================================
+#   DataTables
+# =============================================================================
+*/
+
+$("#dataTable1").dataTable({
+  "sPaginationType": "full_numbers",
+  aoColumnDefs: [
+    {
+      bSortable: false,
+      aTargets: [0, -1]
+    }
+  ]
+});
+$('.table').each(function() {
+  return $(".table #checkAll").click(function() {
+    if ($(".table #checkAll").is(":checked")) {
+      return $(".table input[type=checkbox]").each(function() {
+        return $(this).prop("checked", true);
+      });
+    } else {
+      return $(".table input[type=checkbox]").each(function() {
+        return $(this).prop("checked", false);
+      });
+    }
+  });
+});
 
 $(function(){
 	$(".btn-save").click(function(){
+		var id = $(this).attr("id");
 		var desc = $(".note-editable").html();
-		$.post("/admin/company/saiway/update", { desc: desc },     
+		$.post("/admin/company/"+id+"/update", { desc: desc },     
 				function (data, textStatus){
 					var ret = data.status;
 					if (ret){
-						location.href = "/admin/index";
+						location.href = "/admin/company/index";
 					}else {
 						alert("error");
 					}

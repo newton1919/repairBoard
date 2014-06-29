@@ -95,3 +95,9 @@ html, body {
 .inline-reset{
 	display:inline;
 }
+.sidebar{
+	position:fixed;
+	top:210px;
+	left:0px;
+	z-index:1000;
+}
