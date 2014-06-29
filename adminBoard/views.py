@@ -11,10 +11,11 @@ from django.utils.safestring import mark_safe
 
 from .models import Company
 from .forms import CompanyForm
+from .tables import *
 
 from common.decorators import login_required, admin_required
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
-
+from common.tables import Column
 import json
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=30, required=True, 
@@ -82,9 +83,10 @@ def logout(request):
     form = SignupForm()
     return shortcuts.render(request, 'admin/login.html', {'form': form})
 
-class IndexView(ListView):
-    model = Company
-    template_name = "admin/company.html"
+@login_required
+@admin_required
+def index(request):
+    return shortcuts.redirect(reverse("admin:company_index"))
 
 '''    
 class CompanyUpdate(FormView):
@@ -110,21 +112,63 @@ def company_update(request, pk):
         #print desc,pk
         #store to db
         try:
-            company = Company.objects.get(name=pk)
+            company = Company.objects.get(id=pk)
             company.desc = desc
             company.save()
             return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
         except:
             return shortcuts.HttpResponse(json.dumps({'status':False, 'message':""}))
     else:
-        company = Company.objects.get(name=pk)
-        context = {"desc": mark_safe(company.desc)}
+        company = Company.objects.get(id=pk)
+        context = {"desc": mark_safe(company.desc), "id":pk}
         return shortcuts.render(request, 'admin/edit.html',context)
 
 @login_required
 @admin_required
 def company_detail(request, pk):
-    company = Company.objects.get(name=pk)
+    company = Company.objects.get(id=pk)
     context = {"desc": mark_safe(company.desc)}
     return shortcuts.render(request, 'admin/detail.html',context)
+
+
+def get_desc(obj):
+    desc = obj.desc
+    return desc[:20]+"..."
+
+@login_required
+@admin_required
+def company_index(request):
+    #company = Company.objects.get(name=pk)
+    #context = {"desc": mark_safe(company.desc)}
+    context = {}
+    name = Column("Company Name", transform = "name")
+    address = Column("Address", transform = "address")
+    website = Column("Website", transform = "website")
+    desc = Column("Description", transform = get_desc)
+    col_list = [name, address, website, desc]
+    context["columns"] = col_list
+    #get render data
+    objs = Company.objects.filter()
+    display_values = []
+    if objs:
+        for obj in objs:
+            for col in col_list:
+                attr = col.transform
+                ajax_tag = col.ajax
+                if callable(attr):
+                    col_value = {"ajax":ajax_tag,"key":col.name, "value":attr(obj)}
+                else:
+                    col_value = {"ajax":ajax_tag,"key":col.name, "value":getattr(obj,attr)}
+                display_values.append(col_value)
+            obj.display_values = display_values
+            display_values = []
+    
+    context["objs"] = objs
+    #define row actions
+    row_view_action = ViewCompany()
+    row_edit_action = EditCompany()
+    row_actions = [row_view_action, row_edit_action]
+    context["row_actions"] = row_actions
+    #end
+    return shortcuts.render(request, 'admin/company.html',context)
     
