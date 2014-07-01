@@ -1,0 +1,93 @@
+{% load i18n %}
+{% load url from future %}
+<form role="form" action="/admin/appliance/tv/create" method="POST">{% csrf_token %}
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4 class="modal-title" id="myModalLabel">{% trans 'Create TV repair'%}</h4>
+</div>
+<div class="modal-body">
+  <div id="rootwizard">
+	<div class="navbar sr-only" style="height:0px !important;min-height:1px;">
+	  <div class="navbar-inner">
+	    <div class="container">
+		  <ul>
+		  	<li><a href="#tab1" data-toggle="tab">First</a></li>
+			<li><a href="#tab2" data-toggle="tab">Second</a></li>
+		  </ul>
+	    </div>
+	  </div>
+	</div>
+	<div class="text-center" style="margin-bottom:5px;margin-top:0px;">
+      <div class="btn btn-default btn-sm btn-previous"><i class="icon-chevron-left"></i> Back</div>
+      <div class="btn btn-default btn-sm btn-next">Next <i class="icon-chevron-right"></i></div>
+    </div>
+	<div class="progress" style="height:5px">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 60%">
+      </div>
+    </div>
+	<div class="tab-content">
+	    <div class="tab-pane" id="tab1">
+	      <div class="form-group">
+		    <label for="input_title">Title</label>
+		    <input type="text" class="form-control" id="input_title" name="input_title" placeholder="title">
+		  </div>
+		  <div class="form-group">
+		    <label for="input_thumbnail">Thumbnail</label>
+		    <div class="container-fuild">
+		      <div class="row">
+		        <div class="col-lg-6">
+		          <div class="fileupload fileupload-new" data-provides="fileupload">
+	                <div class="fileupload-new img-thumbnail" style="width: 200px; height: 150px;">
+	                  <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">
+	                </div>
+	                <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 200px; max-height: 150px"></div>
+	                <div>
+	                  <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file"></span>
+	                  <a class="btn btn-default fileupload-exists" data-dismiss="fileupload" href="#">Remove</a>
+	                </div>
+	              </div>
+		        </div>
+		        <div class="col-lg-6">
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+	    </div>
+	    <div class="tab-pane" id="tab2">
+	      <div class="summernote">
+      		
+    	  </div>
+	    </div>
+		
+	</div>	
+</div>
+
+  
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel'%}</button>
+  <button type="submit" class="btn btn-primary">{% trans 'Save'%}</button>
+</div>
+</form>
+
+<script type="text/javascript">
+$(function(){
+	$('#rootwizard').bootstrapWizard({
+				onTabShow: function(tab, navigation, index) {
+				var $total = navigation.find('li').length;
+				var $current = index+1;
+				var $percent = ($current/$total) * 100;
+				$('#rootwizard').find('.progress-bar').css({width:$percent+'%'});
+				},
+				nextSelector:".btn-next",
+				previousSelector:".btn-previous",
+	});
+	if ($('.summernote').length) {
+	      $('.summernote').summernote({
+	        height: 600,
+	        focus: true,
+	        toolbar: [['style', ['style']], ['style', ['bold', 'italic', 'underline', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['insert', ['picture', 'link']], ['table', ['table']], ['fullscreen', ['fullscreen']]]
+	      });
+	}
+});
+</script>

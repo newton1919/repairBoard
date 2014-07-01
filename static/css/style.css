@@ -3,6 +3,7 @@ html, body {
   padding-top: 0px;
   padding-bottom: 0px;
   height:100%;
+  background: #e8e8e8;
 }
 
 .sidenav .list-group-item{
@@ -20,7 +21,7 @@ html, body {
 }
 
 .mainPanel {
-	min-height:600px;
+	min-height:672px;
 }
 /*----------------------------------------------------------------------------------- */
 /*  Document Setup */
@@ -100,4 +101,101 @@ html, body {
 	top:210px;
 	left:0px;
 	z-index:1000;
+}
+/*----------------------------------------------------------------------------------- */
+/*  Custom image upload button */
+/*----------------------------------------------------------------------------------- */
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle; }
+  .btn-file > input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    font-size: 23px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
+    direction: ltr; }
+  .btn-file + .fileupload-preview {
+    padding: 0 5px 0 10px;
+    vertical-align: middle; }
+
+.fileupload .form-control {
+  height: 34px;
+  display: inline-block;
+  box-shadow: none; }
+.fileupload .uneditable-input {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+  cursor: text; }
+.fileupload .img-thumbnail {
+  display: inline-block;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  border-radius: 0;
+  padding: 0; }
+  .fileupload .img-thumbnail > img {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 100%; }
+.fileupload .btn {
+  vertical-align: middle;
+  margin: 0 2px 0 -1px; }
+
+.fileupload-exists .fileupload-new, .fileupload-new .fileupload-exists {
+  display: none; }
+
+.fileupload-inline .fileupload-controls {
+  display: inline; }
+
+.fileupload-new .input-append .btn-file {
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0; }
+
+.thumbnail-borderless .img-thumbnail {
+  padding: 0;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+
+.fileupload-new.thumbnail-borderless .im-thumbnail {
+  border: 1px solid #dddddd; }
+
+.fileupload .fileupload-preview + .close {
+  vertical-align: middle; }
+
+.control-group.warning .fileupload .uneditable-input {
+  color: #a47e3c;
+  border-color: #a47e3c; }
+.control-group.warning .fileupload .fileupload-preview {
+  color: #a47e3c; }
+.control-group.warning .fileupload .img-thumbnail {
+  border-color: #a47e3c; }
+.control-group.error .fileupload .uneditable-input {
+  color: #b94a48;
+  border-color: #b94a48; }
+.control-group.error .fileupload .fileupload-preview {
+  color: #b94a48; }
+.control-group.error .fileupload .img-thumbnail {
+  border-color: #b94a48; }
+.control-group.success .fileupload .uneditable-input {
+  color: #468847;
+  border-color: #468847; }
+.control-group.success .fileupload .fileupload-preview {
+  color: #468847; }
+.control-group.success .fileupload .img-thumbnail {
+  border-color: #468847; 
 }

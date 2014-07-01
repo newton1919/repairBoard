@@ -1,0 +1,74 @@
+{% extends 'base/_base.html' %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% block title %}{% trans "Company-contact" %}{% endblock %}
+ 
+{% block headerCssBlock %}
+  
+{% endblock %}
+
+
+{% block headerJsBlock %}
+{% endblock %}
+
+{% block mainPanelTitle %}
+<div class="container-fuild">
+<div class="row">
+<div class='col-lg-12'>
+<ol class="breadcrumb breadcrumb_reset">
+  <li><a class="active">{{type}} repair</a></li>
+</ol>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block main %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div class="container-fuild" style="margin-bottom:10px">
+	<div class="row">
+	<div class="col-lg-12">
+	  <div class="btn-group pull-right">
+		{% for table_action in table_actions %}
+          <a data-toggle="modal" data-target=".myModal" href="/admin/appliance/{{type}}/{{table_action.name}}" class="btn btn-default"><i class="{{table_action.icon}}"></i>  {{table_action.verbose_name}}</a>
+        {% endfor%}
+	  </div>
+	</div>
+	</div>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped" id="dataTable1">
+    <thead>
+      <th class="check-header hidden-xs">
+        <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+      </th>
+      {% for col in columns %}
+      <th>{{col.verbose_name}}</th>
+      {% endfor%}
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      {% for obj in objs %}
+      <tr class="has_context" id={{obj.id}}>
+        <td class="check hidden-xs">
+          <label><input name="optionsRadios1" type="checkbox" value="option1"><span></span></label>
+        </td>
+        {% for value_dic in obj.display_values %}
+          {%if value_dic.ajax%}
+          <td class="{{obj.id}} {{ value_dic.key }} ajax">{{ value_dic.value }} </td>
+          {% else %}
+          <td class="{{obj.id}} {{ value_dic.key }}">{{ value_dic.value }} </td>
+          {%endif%}
+        {% endfor%}
+        <td class="actions">
+          <div class="action-buttons">
+            {% for row_action in row_actions %}
+            	<a class="table-actions" href="/admin/appliance/{{type}}/{{obj.id}}/{{row_action.name}}"><i class="{{row_action.icon}}"></i></a>
+            {% endfor%}
+          </div>
+        </td>
+      </tr>
+      {% endfor%}
+    </tbody>
+                  
+  </table>
+{% endblock %}
