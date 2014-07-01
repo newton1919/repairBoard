@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.core.urlresolvers import reverse_lazy
 from django.utils.safestring import mark_safe
 
-from .models import Company
+from .models import Company, Appliance
 from .forms import CompanyForm
 from .tables import *
 
@@ -171,4 +171,59 @@ def company_index(request):
     context["row_actions"] = row_actions
     #end
     return shortcuts.render(request, 'admin/company.html',context)
+
+def get_content(obj):
+    return ""
+
+@login_required
+@admin_required
+def appliance_index(request, pk):
+    #company = Company.objects.get(name=pk)
+    #context = {"desc": mark_safe(company.desc)}
+    context = {}
+    context["type"] = pk
+    title = Column("Title", transform = "title")
+    thumbnail = Column("Thumbnail", transform = "thumbnail")
+    content = Column("Content", transform = get_content)
+    create_at = Column("Create_time", transform = "create_at")
+    update_at = Column("Update_time", transform = "update_at")
     
+    col_list = [title, thumbnail, content, create_at, update_at]
+    context["columns"] = col_list
+    #get render data
+    objs = Appliance.objects.filter(type = pk)
+    display_values = []
+    if objs:
+        for obj in objs:
+            for col in col_list:
+                attr = col.transform
+                ajax_tag = col.ajax
+                if callable(attr):
+                    col_value = {"ajax":ajax_tag,"key":col.name, "value":attr(obj)}
+                else:
+                    col_value = {"ajax":ajax_tag,"key":col.name, "value":getattr(obj,attr)}
+                display_values.append(col_value)
+            obj.display_values = display_values
+            display_values = []
+    
+    context["objs"] = objs
+    #define row actions
+    row_view_action = ViewTv()
+    row_edit_action = EditTv()
+    row_delete_action = DeleteTv()
+    row_actions = [row_view_action, row_edit_action, row_delete_action]
+    context["row_actions"] = row_actions
+    #end
+    #define table actions
+    table_add_action = AddTv()
+    table_delete_action = TableDeleteTv()
+    table_actions = [table_add_action, table_delete_action,]
+    context["table_actions"] = table_actions
+    #end
+    return shortcuts.render(request, 'admin/appliance/index.html',context)
+    
+@login_required
+@admin_required
+def appliance_create(request, pk):
+    context = {}
+    return shortcuts.render(request, 'admin/appliance/create.html', context)

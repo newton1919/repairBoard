@@ -14,3 +14,18 @@ class Company(models.Model):
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.name
+    
+class Appliance(models.Model):
+    type = models.CharField(max_length=20)
+    title = models.CharField(max_length=80)
+    thumbnail = models.CharField(max_length=200)
+    content = models.CharField(max_length=10000)
+    create_at = models.CharField(max_length=50)
+    update_at = models.CharField(max_length=50)
+      
+    class Meta:
+        pass
+  
+    # On Python 3: def __str__(self):
+    def __unicode__(self):
+        return self.title
