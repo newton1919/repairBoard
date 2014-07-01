@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load url from future %}
-<form role="form" action="/admin/appliance/tv/create" method="POST">{% csrf_token %}
+<form id="appliance" role="form" action="/admin/appliance/tv/create" method="POST">{% csrf_token %}
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="modal-title" id="myModalLabel">{% trans 'Create TV repair'%}</h4>
@@ -54,9 +54,7 @@
 		  </div>
 	    </div>
 	    <div class="tab-pane" id="tab2">
-	      <div class="summernote">
-      		
-    	  </div>
+	      <input class="summernote"/>
 	    </div>
 		
 	</div>	
@@ -78,9 +76,25 @@ $(function(){
 				var $current = index+1;
 				var $percent = ($current/$total) * 100;
 				$('#rootwizard').find('.progress-bar').css({width:$percent+'%'});
+				if (index == $total-1) {
+					$("#appliance").find(".modal-footer").show();
+				}else{
+					$("#appliance").find(".modal-footer").hide();
+				}
+				
 				},
 				nextSelector:".btn-next",
 				previousSelector:".btn-previous",
+				onNext: function(tab, navigation, index) {
+			        if (index === 1) {
+			          if (!$("#input_title").val()) {
+			            $("#input_title").focus();
+			            $("#input_title").addClass("has-error");
+			            return false;
+			          }
+			        }
+			        return true;
+			 	},
 	});
 	if ($('.summernote').length) {
 	      $('.summernote').summernote({

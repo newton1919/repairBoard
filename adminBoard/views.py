@@ -225,5 +225,10 @@ def appliance_index(request, pk):
 @login_required
 @admin_required
 def appliance_create(request, pk):
-    context = {}
-    return shortcuts.render(request, 'admin/appliance/create.html', context)
+    if request.method == 'POST':
+        title = request.POST.get("input_title", "")
+        print request.POST
+        return shortcuts.redirect("/admin/appliance/%s/index" % pk)
+    else:
+        context = {}
+        return shortcuts.render(request, 'admin/appliance/create.html', context)
