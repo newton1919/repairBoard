@@ -2,12 +2,14 @@
 from django import shortcuts
 from django.contrib.auth.models import User
 from django import forms
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login as session_login, logout as session_logout
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.safestring import mark_safe
+from datetime import datetime
 
 from .models import Company, Appliance
 from .forms import CompanyForm
@@ -16,7 +18,8 @@ from .tables import *
 from common.decorators import login_required, admin_required
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from common.tables import Column
-import json
+import json,os
+
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=30, required=True, 
                                widget=forms.TextInput(attrs={"class":"form-control"}))
@@ -173,7 +176,8 @@ def company_index(request):
     return shortcuts.render(request, 'admin/company.html',context)
 
 def get_content(obj):
-    return ""
+    content = obj.content
+    return content[:10]+"..."
 
 @login_required
 @admin_required
@@ -186,9 +190,9 @@ def appliance_index(request, pk):
     thumbnail = Column("Thumbnail", transform = "thumbnail")
     content = Column("Content", transform = get_content)
     create_at = Column("Create_time", transform = "create_at")
-    update_at = Column("Update_time", transform = "update_at")
+    #update_at = Column("Update_time", transform = "update_at")
     
-    col_list = [title, thumbnail, content, create_at, update_at]
+    col_list = [title, thumbnail, content, create_at,]
     context["columns"] = col_list
     #get render data
     objs = Appliance.objects.filter(type = pk)
@@ -208,27 +212,55 @@ def appliance_index(request, pk):
     
     context["objs"] = objs
     #define row actions
-    row_view_action = ViewTv()
-    row_edit_action = EditTv()
-    row_delete_action = DeleteTv()
+    row_view_action = ViewAppliance()
+    row_edit_action = EditAppliance()
+    row_delete_action = DeleteAppliance()
     row_actions = [row_view_action, row_edit_action, row_delete_action]
     context["row_actions"] = row_actions
     #end
     #define table actions
-    table_add_action = AddTv()
-    table_delete_action = TableDeleteTv()
-    table_actions = [table_add_action, table_delete_action,]
+    table_view_action = TableViewAppliance()
+    table_add_action = TableAddAppliance()
+    table_delete_action = TableDeleteAppliance()
+    table_actions = [table_view_action, table_add_action, table_delete_action,]
     context["table_actions"] = table_actions
     #end
     return shortcuts.render(request, 'admin/appliance/index.html',context)
+
+def handle_uploaded_file(f, pk):
+    upload_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", pk)
+    if not os.path.exists(upload_path):
+        os.makedirs(upload_path)
     
+    with open(os.path.join(upload_path, str(f)), 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return os.path.join("/static/images/thumbnails", pk, str(f))
+            
 @login_required
 @admin_required
 def appliance_create(request, pk):
     if request.method == 'POST':
-        title = request.POST.get("input_title", "")
-        print request.POST
-        return shortcuts.redirect("/admin/appliance/%s/index" % pk)
+        title = request.POST.get("title", "")
+        content = request.POST.get("content", "")
+        thumbnails = request.FILES.get('thumbnail', "")
+        if not thumbnails:
+            thumbnail_after = ""
+        else:
+            thumbnail = thumbnails
+            thumbnail_after = handle_uploaded_file(thumbnail, pk)
+        #store into table Appliance
+        create_at = datetime.now()
+        appliance_obj = Appliance(type=pk, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
+        appliance_obj.save()
+            
+        return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     else:
-        context = {}
+        context = {"type": pk}
         return shortcuts.render(request, 'admin/appliance/create.html', context)
+    
+def appliance_view(request, pk):
+    context = {"type": pk}
+    objs = Appliance.objects.filter(type = pk)
+    context["objs"] = objs
+    return shortcuts.render(request, 'admin/appliance/view.html', context)

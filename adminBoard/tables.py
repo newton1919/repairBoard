@@ -18,7 +18,7 @@ class EditCompany(object):
     def allowed(self, request, obj):
         return True
     
-class ViewTv(object):
+class ViewAppliance(object):
     verbose_name = "View"
     name = "view"
     icon = "icon-eye-open"
@@ -26,7 +26,7 @@ class ViewTv(object):
     def allowed(self, request, obj):
         return True
         
-class EditTv(object):
+class EditAppliance(object):
     verbose_name = "Edit"
     name = "update"
     icon = "icon-pencil"
@@ -35,7 +35,7 @@ class EditTv(object):
         return True
     
     
-class DeleteTv(object):
+class DeleteAppliance(object):
     verbose_name = "Delete"
     name = "delete"
     icon = "icon-trash"
@@ -43,18 +43,29 @@ class DeleteTv(object):
     def allowed(self, request, obj):
         return True
 
-class AddTv(object):
+class TableAddAppliance(object):
     verbose_name = "Create"
     name = "create"
     icon = "icon-plus"
+    modal = True
         
     def allowed(self, request, obj):
         return True
 
-class TableDeleteTv(object):
+class TableDeleteAppliance(object):
     verbose_name = "Delete"
     name = "delete"
     icon = "icon-trash"
+    modal = True
+        
+    def allowed(self, request, obj):
+        return True
+    
+class TableViewAppliance(object):
+    verbose_name = "View"
+    name = "view"
+    icon = "icon-eye-open"
+    modal = False
         
     def allowed(self, request, obj):
         return True

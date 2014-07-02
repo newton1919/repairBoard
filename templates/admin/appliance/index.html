@@ -29,7 +29,7 @@
 	<div class="col-lg-12">
 	  <div class="btn-group pull-right">
 		{% for table_action in table_actions %}
-          <a data-toggle="modal" data-target=".myModal" href="/admin/appliance/{{type}}/{{table_action.name}}" class="btn btn-default"><i class="{{table_action.icon}}"></i>  {{table_action.verbose_name}}</a>
+          <a {% if table_action.modal %}data-toggle="modal" data-target=".myModal" {%endif%} href="/admin/appliance/{{type}}/{{table_action.name}}" class="btn btn-default"><i class="{{table_action.icon}}"></i>  {{table_action.verbose_name}}</a>
         {% endfor%}
 	  </div>
 	</div>

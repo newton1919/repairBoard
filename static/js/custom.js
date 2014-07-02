@@ -52,10 +52,10 @@ $(function(){
     
     /*
     # =============================================================================
-    #   tv save
+    #   company save
     # =============================================================================
     */
-	$(".btn-save").click(function(){
+	$('#company').find(".btn-save").click(function(){
 		var id = $(this).attr("id");
 		var desc = $(".note-editable").html();
 		$.post("/admin/company/"+id+"/update", { desc: desc },     
