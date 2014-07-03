@@ -1,40 +1,46 @@
 {% load i18n %}
 {% load url from future %}
 <div class="panel panel-black">
-  <div class="panel-heading">{% trans "Appliance repair" %}</div>
+  <div class="panel-heading"><strong>{% trans "Appliance repair" %}</strong></div>
   <div class="panel-body">
     <div class="list-group sidenav">
-	  <a href="/admin/appliance/tv/index" class="list-group-item">
-	    {% trans "TV repair" %}
-	  </a>
-	  <a href="#" class="list-group-item disabled">{% trans "Appliance repair" %}</a>
-	  <a href="#" class="list-group-item disabled">{% trans "Appliance repair" %}</a>
-	  <a href="#" class="list-group-item disabled">{% trans "Appliance repair" %}</a>
-	  <a href="#" class="list-group-item disabled">{% trans "Appliance repair" %}</a>
+	  
+<!-- 	  <a href="#" class="list-group-item">{% trans "Washer repair" %}</a> -->
+<!-- 	  <a href="#" class="list-group-item">{% trans "Fridge repair" %}</a> -->
+<!-- 	  <a href="#" class="list-group-item">{% trans "Microwave Oven repair" %}</a> -->
+<!-- 	  <a href="#" class="list-group-item">{% trans "Heater repair" %}</a> -->
+	  {%for appliance in appliance_list%}
+	    <a href="/{{role}}appliance/{{appliance.type}}/index" class="list-group-item">
+	      <strong>{{appliance.type}}</strong>
+	    </a>
+	  {%endfor%}
+	  {% if role %}
+	    <a data-toggle="modal" data-target=".myModal" href="/admin/appliance_type/create" class="btn btn-default btn-block"><i class="icon-plus"></i> add appliance type</a>
+	  {%endif%}
 	</div>
   </div>
 </div>
 <div class="panel panel-black">
   <div class="panel-heading">
-  {% trans "Company" %}
+    <strong>{% trans "Company" %}</strong>
   </div>
   <div class="panel-body">
     <div class="list-group sidenav">
-	  <a href="{% url 'admin:company_index' %}" class="list-group-item">
-	    {% trans "Overview" %}
+	  <a href="/{{role}}company/index" class="list-group-item">
+	    <strong>{% trans "Overview" %}</strong>
 	  </a>
-	  <a href="#" class="list-group-item  disabled">{% trans "Contact" %}</a>
+	  <a href="#" class="list-group-item  disabled"><strong>{% trans "Contact" %}</strong></a>
 	</div>
   </div>
 </div>
 <div class="panel panel-black">
   <div class="panel-heading">
-  {% trans "Friendly Link" %}
+    <strong>{% trans "Friendly Link" %}</strong>
   </div>
   <div class="panel-body">
     <div class="list-group sidenav">
-	  <a href="http://www.baidu.com" class="list-group-item" target="_blank">{% trans "Baidu" %}</a>
-	  <a href="http://www.sina.com.cn" class="list-group-item"  target="_blank">{% trans "Sina" %}</a>
+	  <a href="http://www.baidu.com" class="list-group-item" target="_blank"><strong>{% trans "Baidu" %}</strong></a>
+	  <a href="http://www.sina.com.cn" class="list-group-item"  target="_blank"><strong>{% trans "Sina" %}</strong></a>
 	</div>
   </div>
 </div>

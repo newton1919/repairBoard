@@ -6,11 +6,14 @@
         method="{% block form-method %}POST{% endblock %}"
 >{% csrf_token %}
 <div>
+	{% block modal-header %}{% endblock %}
+	<div class="modal-body">
     {% block form-body %}
         <fieldset>
         {% include "base/_form_fields.html" %}
         </fieldset>
     {% endblock %}
+    </div>
     <div class="modal-footer">{% block modal-footer %}{% endblock %}</div>
 </div>
 </form>

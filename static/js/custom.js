@@ -69,5 +69,25 @@ $(function(){
 						
 				},"json");
 	});
+	
+	/* row action need confirm*/
+	$('.confirm-message').hide();
+	$('.row-actions').click(function(e){
+		var need_confirm = $(this).attr("data-confirm");
+		if (need_confirm == "True"){
+			e.preventDefault();
+			$('.confirm-message').fadeIn();
+			$('.confirm-message').attr("data-href", $(this).attr("href"));
+		}else{
+			location.href = $(this).attr("href");
+		}
+	});
+	$('.confirm-message').find('.btn-no').click(function(){
+		$('.confirm-message').fadeOut();
+	});
+	$('.confirm-message').find('.btn-yes').click(function(){
+		$('.confirm-message').fadeOut();
+		location.href = $('.confirm-message').attr("data-href");
+	});
 
 });

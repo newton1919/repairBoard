@@ -101,6 +101,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
                 "django.core.context_processors.static",
                 "django.core.context_processors.media",
                 "django.contrib.messages.context_processors.messages",
+                "repairBoard.context_processors.appliance_list",
                 )
 
 MIDDLEWARE_CLASSES = (
