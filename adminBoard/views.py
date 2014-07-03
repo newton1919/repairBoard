@@ -11,8 +11,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.safestring import mark_safe
 from datetime import datetime
 
-from .models import Company, Appliance
-from .forms import CompanyForm
+from .models import Company, Appliance, Appliance_type
+from .forms import *
 from .tables import *
 
 from common.decorators import login_required, admin_required
@@ -124,6 +124,7 @@ def company_update(request, pk):
     else:
         company = Company.objects.get(id=pk)
         context = {"desc": mark_safe(company.desc), "id":pk}
+        context["role"] = "admin/"
         return shortcuts.render(request, 'admin/edit.html',context)
 
 @login_required
@@ -131,6 +132,7 @@ def company_update(request, pk):
 def company_detail(request, pk):
     company = Company.objects.get(id=pk)
     context = {"desc": mark_safe(company.desc)}
+    context["role"] = "admin/"
     return shortcuts.render(request, 'admin/detail.html',context)
 
 
@@ -143,7 +145,7 @@ def get_desc(obj):
 def company_index(request):
     #company = Company.objects.get(name=pk)
     #context = {"desc": mark_safe(company.desc)}
-    context = {}
+    context = {"role":"admin/"}
     name = Column("Company Name", transform = "name")
     address = Column("Address", transform = "address")
     website = Column("Website", transform = "website")
@@ -179,12 +181,20 @@ def get_content(obj):
     content = obj.content
     return content[:10]+"..."
 
+def appliance_index_orig(request):
+    context = {"role":"admin/"}
+    type_list = Appliance_type.objects.filter()
+    if not type_list:
+        return shortcuts.render(request, 'admin/appliance/index_none.html',context)
+    else:
+        return shortcuts.redirect("/admin/appliance/"+type_list[0].type+"/index")
+    
 @login_required
 @admin_required
 def appliance_index(request, pk):
     #company = Company.objects.get(name=pk)
     #context = {"desc": mark_safe(company.desc)}
-    context = {}
+    context = {"role":"admin/"}
     context["type"] = pk
     title = Column("Title", transform = "title")
     thumbnail = Column("Thumbnail", transform = "thumbnail")
@@ -257,10 +267,56 @@ def appliance_create(request, pk):
         return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     else:
         context = {"type": pk}
+        context["role"] = "admin/"
         return shortcuts.render(request, 'admin/appliance/create.html', context)
+
+@login_required
+@admin_required
+def appliance_type_create(request):
+    if request.method == 'POST':
+        form = ApplianceTypeForm(request, data = request.POST)
+        if form.is_valid(): 
+            return shortcuts.redirect(reverse("admin:appliance_index_orig"))
+        else:
+            context = {}
+            context["role"] = "admin/"
+            context["form"] = form
+            return shortcuts.render(request, 'admin/appliance/type_create.html', context)
+    else:
+        form = ApplianceTypeForm()
+        context = {}
+        context["role"] = "admin/"
+        context["form"] = form
+        return shortcuts.render(request, 'admin/appliance/type_create.html', context)
+
     
 def appliance_view(request, pk):
     context = {"type": pk}
+    context["role"] = "admin/"
     objs = Appliance.objects.filter(type = pk)
     context["objs"] = objs
     return shortcuts.render(request, 'admin/appliance/view.html', context)
+
+def appliance_single_view(request, pk, appliance_id):
+    context = {"type": pk}
+    context["role"] = "admin/"
+    obj = Appliance.objects.get(type = pk, id = appliance_id)
+    context["content"] = mark_safe(obj.content)
+    context["title"] = obj.title
+    return shortcuts.render(request, 'admin/appliance/single_view.html', context)
+
+@login_required
+@admin_required
+def appliance_single_delete(request, pk, appliance_id):
+    context = {"type": pk}
+    context["role"] = "admin/"
+    obj = Appliance.objects.get(type = pk, id = appliance_id)
+    static_path = obj.thumbnail
+    thumbnail_name = os.path.basename(static_path)
+    thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", pk, thumbnail_name)
+    if os.path.exists(thumbnail_path):
+        os.remove(thumbnail_path)
+    #删除对应的缩略图
+    obj.delete()
+    
+    return shortcuts.redirect("/admin/appliance/"+pk+"/index")

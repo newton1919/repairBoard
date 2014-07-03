@@ -29,3 +29,17 @@ class Appliance(models.Model):
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.title
+    
+class Appliance_type(models.Model):
+    type = models.CharField(max_length=20)
+    desc = models.CharField(max_length=80)
+    icon = models.CharField(max_length=20)
+    create_at = models.CharField(max_length=50)
+    update_at = models.CharField(max_length=50)
+      
+    class Meta:
+        pass
+  
+    # On Python 3: def __str__(self):
+    def __unicode__(self):
+        return self.type

@@ -39,6 +39,7 @@ class DeleteAppliance(object):
     verbose_name = "Delete"
     name = "delete"
     icon = "icon-trash"
+    need_confirm = True
         
     def allowed(self, request, obj):
         return True
@@ -56,7 +57,6 @@ class TableDeleteAppliance(object):
     verbose_name = "Delete"
     name = "delete"
     icon = "icon-trash"
-    modal = True
         
     def allowed(self, request, obj):
         return True
