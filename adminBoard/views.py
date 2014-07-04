@@ -192,10 +192,10 @@ def appliance_index_orig(request):
 @login_required
 @admin_required
 def appliance_index(request, pk):
-    #company = Company.objects.get(name=pk)
-    #context = {"desc": mark_safe(company.desc)}
     context = {"role":"admin/"}
-    context["type"] = pk
+    appliance_type = Appliance_type.objects.get(id = pk)
+    context["type"] = appliance_type.type
+    context["type_id"] = pk
     title = Column("Title", transform = "title")
     thumbnail = Column("Thumbnail", transform = "thumbnail")
     content = Column("Content", transform = get_content)
@@ -205,7 +205,7 @@ def appliance_index(request, pk):
     col_list = [title, thumbnail, content, create_at,]
     context["columns"] = col_list
     #get render data
-    objs = Appliance.objects.filter(type = pk)
+    objs = Appliance.objects.filter(type = appliance_type.type)
     display_values = []
     if objs:
         for obj in objs:
@@ -250,6 +250,9 @@ def handle_uploaded_file(f, pk):
 @login_required
 @admin_required
 def appliance_create(request, pk):
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    print type2
     if request.method == 'POST':
         title = request.POST.get("title", "")
         content = request.POST.get("content", "")
@@ -258,15 +261,16 @@ def appliance_create(request, pk):
             thumbnail_after = ""
         else:
             thumbnail = thumbnails
-            thumbnail_after = handle_uploaded_file(thumbnail, pk)
+            thumbnail_after = handle_uploaded_file(thumbnail, type2)
         #store into table Appliance
         create_at = datetime.now()
-        appliance_obj = Appliance(type=pk, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
+        print "ddddddddddddddddddddd"
+        appliance_obj = Appliance(type=type2, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
         appliance_obj.save()
             
         return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     else:
-        context = {"type": pk}
+        context = {"type_id": pk, "type": type2}
         context["role"] = "admin/"
         return shortcuts.render(request, 'admin/appliance/create.html', context)
 
@@ -291,16 +295,23 @@ def appliance_type_create(request):
 
     
 def appliance_view(request, pk):
-    context = {"type": pk}
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    
+    context = {"type": type2}
     context["role"] = "admin/"
-    objs = Appliance.objects.filter(type = pk)
+    objs = Appliance.objects.filter(type = type2)
     context["objs"] = objs
     return shortcuts.render(request, 'admin/appliance/view.html', context)
 
 def appliance_single_view(request, pk, appliance_id):
-    context = {"type": pk}
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    
+    context = {"type": type2}
+    context["type_id"] = pk
     context["role"] = "admin/"
-    obj = Appliance.objects.get(type = pk, id = appliance_id)
+    obj = Appliance.objects.get(type = type2, id = appliance_id)
     context["content"] = mark_safe(obj.content)
     context["title"] = obj.title
     return shortcuts.render(request, 'admin/appliance/single_view.html', context)
@@ -308,12 +319,16 @@ def appliance_single_view(request, pk, appliance_id):
 @login_required
 @admin_required
 def appliance_single_delete(request, pk, appliance_id):
-    context = {"type": pk}
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    
+    context = {"type": type2}
+    context["type_id"] = pk
     context["role"] = "admin/"
-    obj = Appliance.objects.get(type = pk, id = appliance_id)
+    obj = Appliance.objects.get(type = type2, id = appliance_id)
     static_path = obj.thumbnail
     thumbnail_name = os.path.basename(static_path)
-    thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", pk, thumbnail_name)
+    thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", type2, thumbnail_name)
     if os.path.exists(thumbnail_path):
         os.remove(thumbnail_path)
     #删除对应的缩略图

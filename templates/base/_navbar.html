@@ -24,17 +24,10 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Appliance</strong> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#"><strong>TV repair</strong></a></li>
+                  {%for appliance in appliance_list%}
+                  <li><a href="/{{role}}appliance/{{appliance.id}}/index"><strong>{{appliance.type}}</strong></a></li>
                   <li class="divider"></li>
-                  <li><a href="#"><strong>Washer repair</strong></a></li>
-                  <li class="divider"></li>
-                  <li><a href="#"><strong>Fridge repair</strong></a></li>
-                  <li class="divider"></li>
-                  <li><a href="#"><strong>Microwave Oven repair</strong></a></li>
-                  <li class="divider"></li>
-                  <li><a href="#"><strong>Heater repair</strong></a></li>
-                  <li class="divider"></li>
-                  
+                  {%endfor%}
                 </ul>
               </li>
             </ul>

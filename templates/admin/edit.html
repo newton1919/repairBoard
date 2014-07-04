@@ -16,15 +16,15 @@
 {% block mainPanelTitle %}
 <div class="container-fuild" id="company">
 	<div class="row">
-	<div class="col-lg-10">
+	<div class="col-lg-9">
 	<ol class="breadcrumb breadcrumb_reset">
 	  <li><a href="/admin/company/index">Company</a></li>
 	  <li class="active">Update</li>
 	</ol>
 	</div>
-	<div class="col-lg-2">
+	<div class="col-lg-3">
 	  <div class="btn-group">
-	    <a href="{% url 'admin:company_index' %}" type="button" class="btn btn-default btn-sm btn-cacel">cancel</a>
+	    <a href="{% url 'admin:company_index' %}" type="button" class="btn btn-default btn-sm btn-cancel">cancel</a>
 		<button type="button" id="{{id}}" class="btn btn-primary btn-sm btn-save">save</button>
 	  </div>
 	</div>

@@ -10,8 +10,10 @@
 <!-- 	  <a href="#" class="list-group-item">{% trans "Microwave Oven repair" %}</a> -->
 <!-- 	  <a href="#" class="list-group-item">{% trans "Heater repair" %}</a> -->
 	  {%for appliance in appliance_list%}
-	    <a href="/{{role}}appliance/{{appliance.type}}/index" class="list-group-item">
+	    <a href="/{{role}}appliance/{{appliance.id}}/index" class="list-group-item list-appliance-item">
 	      <strong>{{appliance.type}}</strong>
+	      <i class="icon-trash pull-right"></i>
+	      <i class="icon-pencil pull-right"></i>
 	    </a>
 	  {%endfor%}
 	  {% if role %}
@@ -29,7 +31,11 @@
 	  <a href="/{{role}}company/index" class="list-group-item">
 	    <strong>{% trans "Overview" %}</strong>
 	  </a>
-	  <a href="#" class="list-group-item  disabled"><strong>{% trans "Contact" %}</strong></a>
+	  <a class="list-group-item">
+	    <strong>
+	    {% trans "Contact" %}
+	    </strong>
+	  </a>
 	</div>
   </div>
 </div>

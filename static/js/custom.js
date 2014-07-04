@@ -89,5 +89,9 @@ $(function(){
 		$('.confirm-message').fadeOut();
 		location.href = $('.confirm-message').attr("data-href");
 	});
-
+	
+	/* delete or edit appliance type*/
+	$('.list-appliance-item > .icon-pencil').click(function(){
+		alert("pencil");
+	});
 });
