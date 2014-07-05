@@ -1,0 +1,68 @@
+{% extends 'base/_base.html' %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% block title %}{% trans "Company-contact" %}{% endblock %}
+ 
+{% block headerCssBlock %}
+  
+{% endblock %}
+
+
+{% block headerJsBlock %}
+{% endblock %}
+
+{% block mainPanelTitle %}
+<div class="container-fuild">
+<div class="row">
+<div class='col-lg-12'>
+<ol class="breadcrumb breadcrumb_reset">
+  <li><a>Company</a></li>
+  <li><a class="active">Contact</a></li>
+</ol>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block main %}
+	<div class="panel-group" id="accordion">
+		  <div class="panel">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="">
+		          {% trans "Contact" %}
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseOne" class="panel-collapse collapse in">
+		      <div class="panel-body">
+				<div class="list-group">
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "Contact people" %}</h4>
+				    <p class="list-group-item-text">{{company_info.contact_people}}</p>
+				  </a>
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "Telphone" %}</h4>
+				    <p class="list-group-item-text">{{company_info.telphone}}</p>
+				  </a>
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "Address" %}</h4>
+				    <p class="list-group-item-text">{{company_info.address}}</p>
+				  </a>
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "City" %}</h4>
+				    <p class="list-group-item-text">{{company_info.city}}</p>
+				  </a>
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "Country" %}</h4>
+				    <p class="list-group-item-text">{{company_info.country}}</p>
+				  </a>
+				  <a class="list-group-item">
+				    <h5 class="list-group-item-heading">{% trans "Website" %}</h4>
+				    <p class="list-group-item-text">{{company_info.website}}</p>
+				  </a>
+				</div>
+		      </div>
+		    </div>
+		  </div>
+	</div>
+{% endblock %}

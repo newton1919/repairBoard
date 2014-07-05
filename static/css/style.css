@@ -28,7 +28,7 @@ html, body {
 }
 
 .mainPanel {
-	min-height:672px;
+	min-height:735px;
 }
 
 .thumbnail_img {
@@ -40,6 +40,30 @@ html, body {
 }
 .list-appliance-item:hover > i {
 	visibility:visible;
+}
+
+/* Back to top */
+
+.totop {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	z-index: 104400;
+	background: #0993d3 !important; 
+}
+
+.totop a, .totop a:visited{
+	display: block;
+	width: 30px;
+	height: 30px;
+	color: #fff;
+	text-align: center;
+	line-height: 30px;
+}
+
+.totop a:hover {
+	color: #eee;
+	text-decoration: none;
 }
 /*----------------------------------------------------------------------------------- */
 /*  Document Setup */

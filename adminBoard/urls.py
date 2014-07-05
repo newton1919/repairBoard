@@ -8,6 +8,7 @@ urlpatterns = patterns('adminBoard',
     url(r'^company/(?P<pk>[^/]+)/update$', views.company_update, name='company_update'),
     url(r'^company/(?P<pk>[^/]+)/view$', views.company_detail, name='company_view'),
     url(r'^company/index$', views.company_index, name='company_index'),
+    url(r'^company/contact$', views.company_contact, name='company_contact'),
     
     url(r'^appliance/index$', views.appliance_index_orig, name='appliance_index_orig'),
     url(r'^appliance/(?P<pk>[^/]+)/index$', views.appliance_index, name='appliance_index'),

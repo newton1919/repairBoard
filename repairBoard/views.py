@@ -29,6 +29,10 @@ def appliance_single_view(request, pk, appliance_id):
     context["title"] = obj.title
     return shortcuts.render(request, 'admin/appliance/single_view.html', context)
 
+def company_contact(request):
+    context = {"role":""}
+    return shortcuts.render(request, 'admin/company_contact.html',context)
+
 def page_not_found(request):
     return shortcuts.render_to_response('404.html')
 

@@ -112,18 +112,40 @@ class CompanyUpdate(FormView):
 def company_update(request, pk):
     if request.method == 'POST':
         desc = request.POST.get("desc", None)
+        name = request.POST.get("name", None)
+        address = request.POST.get("address", None)
+        city = request.POST.get("city", None)
+        country = request.POST.get("country", None)
+        website = request.POST.get("website", None)
+        contact_people = request.POST.get("contact_people", None)
+        telphone = request.POST.get("telphone", None)
         #print desc,pk
         #store to db
         try:
             company = Company.objects.get(id=pk)
             company.desc = desc
+            company.name = name
+            company.address = address
+            company.city = city
+            company.country = country
+            company.website = website
+            company.contact_people = contact_people
+            company.telphone = telphone
             company.save()
             return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
-        except:
-            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':""}))
+        except Exception, e:
+            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
     else:
         company = Company.objects.get(id=pk)
-        context = {"desc": mark_safe(company.desc), "id":pk}
+        context = {"desc": mark_safe(company.desc), 
+                   "id":pk,
+                   "company_name":company.name,
+                   "address":company.address,
+                   "city":company.city,
+                   "country":company.country,
+                   "website":company.website,
+                   "contact_people":company.contact_people,
+                   "telphone":company.telphone,}
         context["role"] = "admin/"
         return shortcuts.render(request, 'admin/edit.html',context)
 
@@ -139,6 +161,10 @@ def company_detail(request, pk):
 def get_desc(obj):
     desc = obj.desc
     return desc[:20]+"..."
+
+def company_contact(request):
+    context = {"role":"admin/"}
+    return shortcuts.render(request, 'admin/company_contact.html',context)
 
 @login_required
 @admin_required

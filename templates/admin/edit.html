@@ -32,9 +32,40 @@
 </div>
 {% endblock %}
 {% block main %}
-    <div class="summernote">
-      {{desc}}
-    </div>
+    <form role="form" id="company_edit">
+	  <div class="form-group">
+	    <label for="company_name">Company name</label>
+	    <input type="text" class="form-control" id="company_name" value="{{company_name}}" placeholder="Company name">
+	  </div>
+	  <div class="form-group">
+	    <label for="country">Country</label>
+	    <input type="text" class="form-control" id="country" value="{{country}}" placeholder="">
+	  </div>
+	  <div class="form-group">
+	    <label for="city">City</label>
+	    <input type="text" class="form-control" id="city" value="{{city}}" placeholder="">
+	  </div>
+	  <div class="form-group">
+	    <label for="address">Address</label>
+	    <input type="text" class="form-control" id="address" value="{{address}}" placeholder="">
+	  </div>
+	  <div class="form-group">
+	    <label for="website">Website</label>
+	    <input type="text" class="form-control" id="website" value="{{website}}" placeholder="">
+	  </div>
+	  <div class="form-group">
+	    <label for="contact_people">Contact people</label>
+	    <input type="text" class="form-control" id="contact_people" value="{{contact_people}}" placeholder="">
+	  </div>
+	  <div class="form-group">
+	    <label for="telphone">Telphone</label>
+	    <input type="text" class="form-control" id="telphone" value="{{telphone}}" placeholder="">
+	  </div>
+	  <div class="summernote">
+        {{desc}}
+      </div>
+	</form>
+    
 <!--   	{% include 'admin/_edit.html' %} -->
     
 {% endblock %}

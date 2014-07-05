@@ -7,6 +7,8 @@ class Company(models.Model):
     desc = models.CharField(max_length=10000)
     country = models.CharField(max_length=50)
     website = models.URLField()
+    contact_people = models.CharField(max_length=10)
+    telphone = models.CharField(max_length=20)
 
     class Meta:
         ordering = ["-name"]
