@@ -8,6 +8,16 @@ if ($('.summernote').length) {
 
 
 $(function(){
+	/*navbar active*/
+//	$('.navbar-nav > li').click(function(e) {
+//	    $('.navbar-nav > li.active').removeClass('active');
+//	    var $this = $(this);
+//	    if (!$this.hasClass('active')) {
+//	        $this.addClass('active');
+//	    }
+//	    
+//	});
+	
 	/*确保modal不是只load一次远程内容，每次都清空重新load */
 	$(document).on("hidden.bs.modal", function (e) { $(e.target).removeData("bs.modal").find(".modal-content").empty(); });
 	

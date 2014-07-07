@@ -7,6 +7,17 @@ html, body {
   background: url("../images/background/bg1.gif") repeat 0 0;
 }
 
+#footer {
+	height: 120px;
+	background: #34373b;
+	color:#fff;
+	font-size:15px;
+}
+#footer > .container {
+	padding:20px 0px 10px 0px;
+	text-align:center;	
+}
+
 .sidenav .list-group-item{
 	border-width:0px !important;
 	border-style:none !important;
