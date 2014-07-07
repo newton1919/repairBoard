@@ -213,7 +213,7 @@ def appliance_index_orig(request):
     if not type_list:
         return shortcuts.render(request, 'admin/appliance/index_none.html',context)
     else:
-        return shortcuts.redirect("/admin/appliance/"+type_list[0].type+"/index")
+        return shortcuts.redirect("/admin/appliance/"+str(type_list[0].id)+"/index")
     
 @login_required
 @admin_required
@@ -319,12 +319,22 @@ def appliance_type_create(request):
         context["form"] = form
         return shortcuts.render(request, 'admin/appliance/type_create.html', context)
 
+@login_required
+@admin_required
+def appliance_type_delete(request, type_id):
+    appliance_type = Appliance_type.objects.get(id = type_id)
+    type2 = appliance_type.type
+    appliance_type.delete()
+    
+    Appliance.objects.filter(type = type2).delete()
+    return shortcuts.redirect(reverse("admin:appliance_index_orig"))
     
 def appliance_view(request, pk):
     appliance_type = Appliance_type.objects.get(id = pk)
     type2 = appliance_type.type
     
     context = {"type": type2}
+    context["type_id"] = pk
     context["role"] = "admin/"
     objs = Appliance.objects.filter(type = type2)
     context["objs"] = objs
@@ -361,3 +371,49 @@ def appliance_single_delete(request, pk, appliance_id):
     obj.delete()
     
     return shortcuts.redirect("/admin/appliance/"+pk+"/index")
+
+@login_required
+@admin_required
+def appliance_single_update(request, pk, appliance_id):
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    if request.method == 'POST':
+        title = request.POST.get("title", "")
+        content = request.POST.get("content", "")
+        thumbnails = request.FILES.get('thumbnail', "")
+        if not thumbnails:
+            #缩略图没有改变
+            thumbnail_after = ""
+        else:
+            #缩略图改变
+            thumbnail = thumbnails
+            thumbnail_after = handle_uploaded_file(thumbnail, type2)
+            #删除原来的缩略图
+            current_appliance = Appliance.objects.get(id = appliance_id)
+            static_path = current_appliance.thumbnail
+            thumbnail_name = os.path.basename(static_path)
+            thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", type2, thumbnail_name)
+            if os.path.exists(thumbnail_path):
+                os.remove(thumbnail_path)
+        #update table Appliance
+        try:
+            update_at = datetime.now()
+            current_appliance = Appliance.objects.get(id = appliance_id)
+            current_appliance.title = title
+            current_appliance.content = content
+            current_appliance.update_at = update_at
+            if thumbnail_after:
+                current_appliance.thumbnail = thumbnail_after
+            current_appliance.save()
+            return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
+        except Exception,e:
+            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
+    else:
+        appliance = Appliance.objects.get(id = appliance_id)
+        context = {"type_id": pk, "type": type2}
+        context["appliance_id"] = appliance_id
+        context["role"] = "admin/"
+        context["title"] = appliance.title
+        context["content"] = mark_safe(appliance.content)
+        context["thumbnail_path"] = appliance.thumbnail
+        return shortcuts.render(request, 'admin/appliance/update.html', context)

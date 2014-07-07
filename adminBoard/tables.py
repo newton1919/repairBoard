@@ -30,7 +30,8 @@ class EditAppliance(object):
     verbose_name = "Edit"
     name = "update"
     icon = "icon-pencil"
-        
+    modal = True
+    
     def allowed(self, request, obj):
         return True
     

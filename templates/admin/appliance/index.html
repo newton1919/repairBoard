@@ -23,7 +23,7 @@
 </div>
 {% endblock %}
 {% block main %}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
   <div class="container-fuild" style="margin-bottom:10px">
   	<div class="row">
   	  <div class="col-lg-12">
@@ -74,7 +74,7 @@
         <td class="actions">
           <div class="action-buttons">
             {% for row_action in row_actions %}
-            	<a class="table-actions row-actions" data-confirm="{{row_action.need_confirm}}" href="/admin/appliance/{{type_id}}/{{obj.id}}/{{row_action.name}}"><i class="{{row_action.icon}}"></i></a>
+            	<a {% if row_action.modal %}data-toggle="modal" data-target=".myModal" {%endif%} class="table-actions row-actions" data-confirm="{{row_action.need_confirm}}" href="/admin/appliance/{{type_id}}/{{obj.id}}/{{row_action.name}}"><i class="{{row_action.icon}}"></i></a>
             {% endfor%}
           </div>
         </td>
