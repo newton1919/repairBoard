@@ -17,6 +17,20 @@ $(function(){
 //	    }
 //	    
 //	});
+	/*设置语言*/
+	$(".btn.language").click(function(){
+		var lang = $(this).attr("data-language");
+		$.get("/language",{"language":lang}, 
+			function (data, textStatus){
+				var ret = data.status;
+				if (ret){
+					location.reload();
+				}else {
+					alert(data.message);
+					location.reload();
+				}
+			},"json");
+	});
 	
 	/*确保modal不是只load一次远程内容，每次都清空重新load */
 	$(document).on("hidden.bs.modal", function (e) { $(e.target).removeData("bs.modal").find(".modal-content").empty(); });

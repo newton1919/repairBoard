@@ -19,10 +19,10 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="/{{role}}"><i class="icon-home"></i> <strong>Home</strong></a></li>
-              <li><a href="/{{role}}company/contact"><i class="icon-comments"></i> <strong>Contact</strong></a></li>
+              <li><a href="/{{role}}"><i class="icon-home"></i> <strong>{%trans 'Home'%}</strong></a></li>
+              <li><a href="/{{role}}company/contact"><i class="icon-comments"></i> <strong>{%trans 'Contact'%}</strong></a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-laptop"></i> <strong>Appliance</strong> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-laptop"></i> <strong>{%trans 'Appliance'%}</strong> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   {%for appliance in appliance_list%}
                   <li><a href="/{{role}}appliance/{{appliance.id}}/index"><strong>{{appliance.type}}</strong></a></li>
@@ -30,7 +30,14 @@
                   {%endfor%}
                 </ul>
               </li>
-              <li><a href=""><i class="icon-globe"></i> <strong>语言(Language)</strong></a></li>
+              
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe"></i> <strong>语言(Language)</strong> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a class="btn language" data-language="zh-cn"><strong>中文</strong></a></li>
+                  <li><a class="btn language" data-language="en"><strong>English</strong></a></li>
+                </ul>
+              </li>
             </ul>
             {% if request.user.is_superuser %}
             {% include 'admin/_userPanel.html' %}

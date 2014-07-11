@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-03 16:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/base/_navbar.html
+msgid "Home"
+msgstr "首页"
+
+msgid "Contact"
+msgstr "联系方式"
+
+msgid "Appliance"
+msgstr "家电"
+
+#: templates/index.html
+msgid "Company"
+msgstr "公司"
+
+#: templates/base/_base.html
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "Technology Support By Yuxiaoyang"
+msgstr "俞小洋提供技术支持"
+
+#: templates/base/_sidebar.html
+msgid "repair"
+msgstr "维修"
+
+msgid "Confirm"
+msgstr "确定"
+
+msgid "yes"
+msgstr "是"
+
+msgid "no"
+msgstr "否"
+
+msgid "Friendly Link"
+msgstr "友情链接"
+
+msgid "Baidu"
+msgstr "百度"
+
+msgid "Sina"
+msgstr "新浪"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "City"
+msgstr "城市"
+
+msgid "Country"
+msgstr "国家"
+
+msgid "Website"
+msgstr "网站"
+
+msgid "Telphone"
+msgstr "电话"
+
+msgid "Contact people"
+msgstr "联系人"
+
+msgid "add appliance type"
+msgstr "增加家电类型"
+
+msgid "Overview"
+msgstr "概述"
+
+#: templates/admin/login.html
+msgid "login"
+msgstr "登陆"

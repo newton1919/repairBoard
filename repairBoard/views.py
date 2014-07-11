@@ -2,7 +2,9 @@
 from django import shortcuts
 from django.utils.safestring import mark_safe
 from adminBoard.models import Company, Appliance
-    
+from django.utils.translation import ugettext as _
+
+import json
 
 def index(request):
     context = {"role":""}
@@ -33,8 +35,13 @@ def company_contact(request):
     context = {"role":""}
     return shortcuts.render(request, 'admin/company_contact.html',context)
 
-def page_not_found(request):
-    return shortcuts.render_to_response('404.html')
-
-def page_error(request):
-    return shortcuts.render_to_response('500.html')
+def language(request):
+    lang = request.GET.get("language", None)
+    if lang:
+        request.session['django_language'] = lang
+        resp = shortcuts.HttpResponse()
+        resp.write(json.dumps({'status':True, 'message':""}))
+        resp.set_cookie("django_language", lang)
+        return resp
+    else:
+        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':_("please select language")}))
