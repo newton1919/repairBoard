@@ -9,6 +9,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 from datetime import datetime
 
 from .models import Company, Appliance, Appliance_type
@@ -22,10 +23,10 @@ import json,os
 
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=30, required=True, 
-                               widget=forms.TextInput(attrs={"class":"form-control"}))
+                               widget=forms.TextInput(attrs={"class":"form-control", "data_class":"no-label", "placeholder":_('username')}))
     #email = forms.EmailField()
     password = forms.CharField(max_length=30,
-                                widget=forms.PasswordInput(attrs={"class":"form-control"}, render_value=False))
+                                widget=forms.PasswordInput(attrs={"class":"form-control", "data_addon":True ,"data_class":"no-label", "placeholder":_('password')}, render_value=False))
     form_action = "/admin/"
     
     
@@ -79,6 +80,7 @@ def login(request):
             return shortcuts.render(request, 'admin/login.html', {'form': form})
     else:
         form = SignupForm()
+        print form.visible_fields()[0].field.widget.attrs.get("data_class", "")
         return shortcuts.render(request, 'admin/login.html', {'form': form})
 
 def logout(request):

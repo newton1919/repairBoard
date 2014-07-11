@@ -13,7 +13,10 @@
 {% endif %}
 {% for field in form.visible_fields %}
   <div class="form-group {% if field.errors %} error{% endif %} {{ field.css_classes }}">
+    {%if not field.field.widget.attrs.data_class == "no-label"%}
     {{ field.label_tag }}
+    {%endif%}
+    
     {% if field.errors %}
       {% for error in field.errors %}
         <span class="help-inline">{{ error }}</span>
@@ -22,6 +25,9 @@
     <span class="help-block">{{ field.help_text }}</span>
     <div class="">
       {{ field }}
+      {%if field.field.widget.attrs.data_addon %}
+      <input type="submit" value="&#xf054;">
+      {%endif%}
     </div>
   </div>
 {% endfor %}

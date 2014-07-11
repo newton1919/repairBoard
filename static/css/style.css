@@ -110,6 +110,25 @@ html, body {
 /*----------------------------------------------------------------------------------- */
 /*  Login 1 */
 /*----------------------------------------------------------------------------------- */
+#login input[type="submit"] {
+      position: relative;
+      top: -40px;
+      left: 250px;
+      opacity: 0.5;
+      font-family: "FontAwesome";
+      background: transparent;
+      color: #888888;
+      border: 2px solid #888888;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      padding-left: 7px;
+      line-height: 24px; 
+}
+#login input[type="submit"]:hover {
+	opacity: 1; 
+}
+        
 .login-wraper {
   padding: 0;
   background: url(../images/login-blurry-bg.jpg) no-repeat center center;
