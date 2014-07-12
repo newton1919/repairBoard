@@ -1,7 +1,7 @@
 {% extends 'base/_base.html' %}
 {% load i18n %}
 {% load static from staticfiles %}
-{% block title %}{% trans "Company-contact" %}{% endblock %}
+{% block title %}{% trans "Contact" %}{% endblock %}
  
 {% block headerCssBlock %}
   
@@ -16,8 +16,8 @@
 <div class="row">
 <div class='col-lg-12'>
 <ol class="breadcrumb breadcrumb_reset">
-  <li><a>Company</a></li>
-  <li><a class="active">Contact</a></li>
+  <li><a>{% trans "Company" %}</a></li>
+  <li><a class="active">{% trans "Contact" %}</a></li>
 </ol>
 </div>
 </div>

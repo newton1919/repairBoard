@@ -110,6 +110,16 @@ html, body {
 /*----------------------------------------------------------------------------------- */
 /*  Login 1 */
 /*----------------------------------------------------------------------------------- */
+.logo-brand {
+	font-size:45px;
+	text-align:center;
+}
+#login input[type="text"] {
+	font-size:18px;
+}
+#login input[type="password"] {
+	font-size:18px;
+}
 #login input[type="submit"] {
       position: relative;
       top: -40px;

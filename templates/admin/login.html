@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" >
     <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" > 
 	<link rel="stylesheet" href="{% static 'css/style.css' %}" >
-	<title>{% block title %}{% endblock %} - {% trans "login" %}</title>
+	<title>{% trans "login" %}</title>
 	
 	<script src="{% static 'js/jquery-2.1.1.js' %}" type="text/javascript"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -19,6 +19,9 @@
   <body>
     <div class="login-wraper">
       <div class="login-container active">
+        <div class="logo-brand">
+      	  <a><i class="icon-windows"></i> <span><strong>iRepair</strong></span></a>
+  		</div>
   		{% include 'admin/_login.html' %}
 	  </div>
 	</div>  	

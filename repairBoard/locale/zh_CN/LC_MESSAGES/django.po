@@ -87,3 +87,76 @@ msgstr "概述"
 #: templates/admin/login.html
 msgid "login"
 msgstr "登陆"
+
+#: templates/admin/_userPanel.html
+msgid "Logout"
+msgstr "注销"
+
+#: templates/admin/_userPanel.html
+msgid "Settings"
+msgstr "设置"
+
+#: adminBoard/views.py
+msgid "username"
+msgstr "用户名"
+
+msgid "password"
+msgstr "密码"
+
+msgid "This username must not be None."
+msgstr "用户名不能为空。"
+
+msgid "This username and password must not be None."
+msgstr "用户名和密码不能为空。"
+
+msgid "disabled account"
+msgstr "被禁止的账户"
+
+msgid "The password doesnot match the username"
+msgstr "用户名和密码不匹配"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Thumbnail"
+msgstr "缩略图"
+
+msgid "Content"
+msgstr "主要内容"
+
+msgid "Create_time"
+msgstr "创建时间"
+
+msgid "Type"
+msgstr "类型"
+
+#: templates/admin/company.html
+msgid "Actions"
+msgstr "操作"
+
+#: templates/admin/detail.html
+msgid "Details"
+msgstr "详情"
+
+#: templates/admin/edit.html
+msgid "Update"
+msgstr "更新"
+
+msgid "cancel"
+msgstr "取消"
+
+msgid "save"
+msgstr "保存"
+
+#: templates/admin/appliance/type_create.html
+msgid "Create appliance type"
+msgstr "新建家电类型"
+
+msgid "Ok"
+msgstr "好"

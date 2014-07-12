@@ -43,7 +43,7 @@ class SignupForm(forms.Form):
         try:
             username=self.cleaned_data['username']
         except:
-            raise forms.ValidationError("This username must not be None.")
+            raise forms.ValidationError(_("This username must not be None."))
         return username
     
     def clean(self):
@@ -52,7 +52,7 @@ class SignupForm(forms.Form):
             username = self.cleaned_data['username']
             password = self.cleaned_data['password']
         except:
-            raise forms.ValidationError("This username and password must not be None.")
+            raise forms.ValidationError(_("This username and password must not be None."))
         
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -61,11 +61,11 @@ class SignupForm(forms.Form):
                 # Redirect to a success page.
             else:
                 # Return a 'disabled account' error message
-                raise forms.ValidationError("disabled account")
+                raise forms.ValidationError(_("disabled account"))
         else:
             # Return an 'invalid login' error message.
             print "The password doesnot match the username"
-            raise forms.ValidationError("The password doesnot match the username")
+            raise forms.ValidationError(_("The password doesnot match the username"))
         return self.cleaned_data
     
 def login(request):
@@ -174,10 +174,10 @@ def company_index(request):
     #company = Company.objects.get(name=pk)
     #context = {"desc": mark_safe(company.desc)}
     context = {"role":"admin/"}
-    name = Column("Company Name", transform = "name")
-    address = Column("Address", transform = "address")
-    website = Column("Website", transform = "website")
-    desc = Column("Description", transform = get_desc)
+    name = Column(_("Company") +_("Name"), transform = "name")
+    address = Column(_("Address"), transform = "address")
+    website = Column(_("Website"), transform = "website")
+    desc = Column(_("Description"), transform = get_desc)
     col_list = [name, address, website, desc]
     context["columns"] = col_list
     #get render data
@@ -224,10 +224,10 @@ def appliance_index(request, pk):
     appliance_type = Appliance_type.objects.get(id = pk)
     context["type"] = appliance_type.type
     context["type_id"] = pk
-    title = Column("Title", transform = "title")
-    thumbnail = Column("Thumbnail", transform = "thumbnail")
-    content = Column("Content", transform = get_content)
-    create_at = Column("Create_time", transform = "create_at")
+    title = Column(_("Title"), transform = "title")
+    thumbnail = Column(_("Thumbnail"), transform = "thumbnail")
+    content = Column(_("Content"), transform = get_content)
+    create_at = Column(_("Create_time"), transform = "create_at")
     #update_at = Column("Update_time", transform = "update_at")
     
     col_list = [title, thumbnail, content, create_at,]

@@ -1,7 +1,7 @@
 {% extends 'base/_base.html' %}
 {% load i18n %}
 {% load static from staticfiles %}
-{% block title %}{% trans "Company-overview" %}{% endblock %}
+{% block title %}{% trans "Overview" %}{% endblock %}
  
 {% block headerCssBlock %}
   <link rel="stylesheet" href="{% static 'css/summernote.css' %}" >
@@ -17,8 +17,8 @@
 <div class="row">
 <div class='col-lg-12'>
 <ol class="breadcrumb breadcrumb_reset">
-  <li><a href="/admin/company/index">Company</a></li>
-  <li class="active">Details</li>
+  <li><a href="/admin/company/index">{% trans "Company" %}</a></li>
+  <li class="active">{% trans "Details" %}</li>
 </ol>
 </div>
 </div>

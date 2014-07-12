@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import Company, Appliance, Appliance_type
 
@@ -7,9 +8,9 @@ class CompanyForm(forms.Form):
     desc = forms.CharField(widget=SummernoteWidget())
     
 class ApplianceTypeForm(forms.Form):
-    type = forms.CharField(max_length=20, required=True, 
+    type = forms.CharField(max_length=20, required=True, label=_("Type"),
                                widget=forms.TextInput(attrs={"class":"form-control"}))
-    desc = forms.CharField(max_length=80, required=False, 
+    desc = forms.CharField(max_length=80, required=False, label=_("Description"), 
                                widget=forms.TextInput(attrs={"class":"form-control"}))
     
     def __init__(self, request=None, *args, **kwargs):
