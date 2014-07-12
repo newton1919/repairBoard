@@ -1,9 +1,10 @@
 from django import shortcuts
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 class ViewCompany(object):
-    verbose_name = "View"
+    verbose_name = _("View")
     name = "view"
     icon = "icon-eye-open"
         
@@ -11,7 +12,7 @@ class ViewCompany(object):
         return True
 
 class EditCompany(object):
-    verbose_name = "Edit"
+    verbose_name = _("Edit")
     name = "update"
     icon = "icon-pencil"
         
@@ -19,7 +20,7 @@ class EditCompany(object):
         return True
     
 class ViewAppliance(object):
-    verbose_name = "View"
+    verbose_name = _("View")
     name = "view"
     icon = "icon-eye-open"
         
@@ -27,7 +28,7 @@ class ViewAppliance(object):
         return True
         
 class EditAppliance(object):
-    verbose_name = "Edit"
+    verbose_name = _("Edit")
     name = "update"
     icon = "icon-pencil"
     modal = True
@@ -37,7 +38,7 @@ class EditAppliance(object):
     
     
 class DeleteAppliance(object):
-    verbose_name = "Delete"
+    verbose_name = _("Delete")
     name = "delete"
     icon = "icon-trash"
     need_confirm = True
@@ -46,7 +47,7 @@ class DeleteAppliance(object):
         return True
 
 class TableAddAppliance(object):
-    verbose_name = "Create"
+    verbose_name = _("Create")
     name = "create"
     icon = "icon-plus"
     modal = True
@@ -55,7 +56,7 @@ class TableAddAppliance(object):
         return True
 
 class TableDeleteAppliance(object):
-    verbose_name = "Delete"
+    verbose_name = _("Delete")
     name = "delete"
     icon = "icon-trash"
         
@@ -63,7 +64,7 @@ class TableDeleteAppliance(object):
         return True
     
 class TableViewAppliance(object):
-    verbose_name = "View"
+    verbose_name = _("View")
     name = "view"
     icon = "icon-eye-open"
     modal = False

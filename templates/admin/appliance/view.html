@@ -1,7 +1,7 @@
 {% extends 'base/_base.html' %}
 {% load i18n %}
 {% load static from staticfiles %}
-{% block title %}{{type}} repair{% endblock %}
+{% block title %}{% trans type %} {%trans 'repair' %}{% endblock %}
  
 {% block headerCssBlock %}
   
@@ -16,7 +16,7 @@
 <div class="row">
 <div class='col-lg-12'>
 <ol class="breadcrumb breadcrumb_reset">
-  <li><a href="javascript:history.back()" class="active">{{type}} repair</a></li>
+  <li><a href="javascript:history.back()" class="active">{% trans type %} {%trans 'repair' %}</a></li>
 </ol>
 </div>
 </div>
@@ -28,7 +28,7 @@
 	  {% for obj in objs%}
 	  <div class="col-xs-6 col-md-3">
         <a href="/{{role}}appliance/{{type_id}}/{{obj.id}}/view" class="thumbnail" data-toggle="tooltip" data-placement="top" title="{{obj.title}}">
-          <img class="thumbnail_img" src="{{obj.thumbnail}}" alt="...">
+          <img class="thumbnail_img" src="{{obj.thumbnail}}" alt="{%trans 'has no thumbnail' %}">
         </a>
       </div>
       {% endfor %}

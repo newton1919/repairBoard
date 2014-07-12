@@ -96,6 +96,19 @@ msgstr "注销"
 msgid "Settings"
 msgstr "设置"
 
+#: adminBoard/tables.py
+msgid "View"
+msgstr "查看"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Edit"
+msgstr "编辑"
+
 #: adminBoard/views.py
 msgid "username"
 msgstr "用户名"
@@ -160,3 +173,46 @@ msgstr "新建家电类型"
 
 msgid "Ok"
 msgstr "好"
+
+#: templates/admin/appliance/index_none.html
+msgid "Appliance repair"
+msgstr "家电维修"
+
+msgid "There has no Appliance type, You can add type on the left panel"
+msgstr "家电类型为空，您可以在左边创建新的家电类型"
+
+#: templates/admin/appliance/index.html
+msgid "fridge"
+msgstr "冰箱"
+
+msgid "tv"
+msgstr "电视"
+
+msgid "air-conditioning"
+msgstr "空调"
+
+msgid "washer"
+msgstr "洗衣机"
+
+msgid "microwave oven"
+msgstr "微波炉"
+
+#: templates/admin/appliance/view.html
+msgid "has no thumbnail"
+msgstr "没有缩略图"
+
+#: templates/admin/appliance/create.html
+msgid "Back"
+msgstr "后退"
+
+msgid "Next"
+msgstr "前进"
+
+msgid "Select image"
+msgstr "选择图片"
+
+msgid "Change"
+msgstr "更改"
+
+msgid "Remove"
+msgstr "移除"

@@ -1,7 +1,7 @@
 {% extends 'base/_base.html' %}
 {% load i18n %}
 {% load static from staticfiles %}
-{% block title %}{{type}} repair{% endblock %}
+{% block title %}{% trans type %} {%trans 'repair' %}{% endblock %}
  
 {% block headerCssBlock %}
   
@@ -16,7 +16,7 @@
 <div class="row">
 <div class='col-lg-12'>
 <ol class="breadcrumb breadcrumb_reset">
-  <li><a class="active">{{type}} repair</a></li>
+  <li><a class="active">{% trans type %} {%trans 'repair' %}</a></li>
 </ol>
 </div>
 </div>
@@ -27,11 +27,11 @@
   <div class="container-fuild" style="margin-bottom:10px">
   	<div class="row">
   	  <div class="col-lg-12">
-  		<div class="alert alert-danger confirm-message" role="alert">
-  		  <span>Confirm</span>
+  		<div class="alert alert-danger confirm-message" role="alert" style="display:none">
+  		  <span>{%trans 'Confirm' %}</span>
   		  <div class="pull-right">
-		    <button type="button" class="btn btn-danger btn-sm btn-no">no</button>
-			<button type="button" class="btn btn-primary btn-sm btn-yes">yes</button>
+		    <button type="button" class="btn btn-danger btn-sm btn-no">{%trans 'no' %}</button>
+			<button type="button" class="btn btn-primary btn-sm btn-yes">{%trans 'yes' %}</button>
 		  </div>
   		</div>
   	  </div>
@@ -56,7 +56,7 @@
       {% for col in columns %}
       <th>{{col.verbose_name}}</th>
       {% endfor%}
-      <th>Actions</th>
+      <th>{%trans 'Actions' %}</th>
     </thead>
     <tbody>
       {% for obj in objs %}

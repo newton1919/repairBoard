@@ -107,7 +107,7 @@ $(function(){
 	});
 	
 	/* row action need confirm*/
-	$('.confirm-message').hide();
+	//$('.confirm-message').hide();
 	$('.row-actions').click(function(e){
 		var need_confirm = $(this).attr("data-confirm");
 		var modal = $(this).attr("data-toggle");
@@ -130,7 +130,7 @@ $(function(){
 	});
 	
 	/* delete appliance type*/
-	$('.confirm-type-message').hide();
+	//$('.confirm-type-message').hide();
 	$('.list-appliance-item > .icon-trash').click(function(e){
 		e.preventDefault();
 		var type_id = $(this).parent().attr("data-ref");
