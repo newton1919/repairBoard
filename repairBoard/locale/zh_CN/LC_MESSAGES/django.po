@@ -35,8 +35,8 @@ msgstr "公司"
 msgid "Email"
 msgstr "电子邮件"
 
-msgid "Technology Support By Yuxiaoyang"
-msgstr "俞小洋提供技术支持"
+msgid "Technology Support By Feiyu"
+msgstr "飞鱼提供技术支持"
 
 #: templates/base/_sidebar.html
 msgid "repair"

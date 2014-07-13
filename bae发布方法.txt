@@ -1,0 +1,2 @@
+1、在bae上新建一个部署后，自动生成index.py, app.conf, favicon.ico;
+   这三个文件都需要修改

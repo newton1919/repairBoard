@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     url(r'^summernote/', include('django_summernote.urls')),
     
     url(r'^appliance/(?P<pk>[^/]+)/index$', "repairBoard.views.appliance_index", name='appliance_index'),
-    url(r'^appliance/(?P<pk>[^/]+)/(?P<appliance_id>[^/]+)/view$', "repairBoard.views.appliance_single_view", name='appliance_single_view'),
+    url(r'^appliance/(?P<pk>[^/]+)/(?P<appliance_id>[^/]+)/view$', "repairBoard.views.appliance_single_view", name='appliance_single_view'),    
     
     url(r'^language$', "repairBoard.views.language"),
 )
