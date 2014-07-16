@@ -28,6 +28,7 @@ class SignupForm(forms.Form):
     password = forms.CharField(max_length=30,
                                 widget=forms.PasswordInput(attrs={"class":"form-control", "data_addon":True ,"data_class":"no-label", "placeholder":_('password')}, render_value=False))
     form_action = "/admin/"
+    form_id = "login"
     
     
     
@@ -113,34 +114,18 @@ class CompanyUpdate(FormView):
 @admin_required
 def company_update(request, pk):
     if request.method == 'POST':
-        desc = request.POST.get("desc", None)
-        name = request.POST.get("name", None)
-        address = request.POST.get("address", None)
-        city = request.POST.get("city", None)
-        country = request.POST.get("country", None)
-        website = request.POST.get("website", None)
-        contact_people = request.POST.get("contact_people", None)
-        telphone = request.POST.get("telphone", None)
-        #print desc,pk
-        #store to db
-        try:
-            company = Company.objects.get(id=pk)
-            company.desc = desc
-            company.name = name
-            company.address = address
-            company.city = city
-            company.country = country
-            company.website = website
-            company.contact_people = contact_people
-            company.telphone = telphone
-            company.save()
-            return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
-        except Exception, e:
-            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
+        form = CompanyForm(request, pk, data = request.POST)
+        if form.is_valid(): 
+            return shortcuts.redirect(reverse("admin:company_index"))
+        else:
+            context = {"id":pk}
+            context["role"] = "admin/"
+            context['form'] = form
+            return shortcuts.render(request, 'admin/edit.html',context)
     else:
         company = Company.objects.get(id=pk)
-        context = {"desc": mark_safe(company.desc), 
-                   "id":pk,
+        context = {"id":pk}
+        initial_data = {"desc": mark_safe(company.desc),
                    "company_name":company.name,
                    "address":company.address,
                    "city":company.city,
@@ -149,6 +134,8 @@ def company_update(request, pk):
                    "contact_people":company.contact_people,
                    "telphone":company.telphone,}
         context["role"] = "admin/"
+        companyForm = CompanyForm(initial = initial_data)
+        context['form'] = companyForm
         return shortcuts.render(request, 'admin/edit.html',context)
 
 @login_required
@@ -156,6 +143,7 @@ def company_update(request, pk):
 def company_detail(request, pk):
     company = Company.objects.get(id=pk)
     context = {"desc": mark_safe(company.desc)}
+    context["name"] = company.name
     context["role"] = "admin/"
     return shortcuts.render(request, 'admin/detail.html',context)
 

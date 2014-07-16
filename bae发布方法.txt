@@ -1,2 +1,9 @@
 1、在bae上新建一个部署后，自动生成index.py, app.conf, favicon.ico;
    这三个文件都需要修改
+   
+2、使用django-summernote直接可以支持上传图片，只需配置MEDIA_ROOT = os.path.join(BASE_DIR, "django-summernote") 和 MEDIA_URL = '/media/'
+   它会在base_dir/django-summernote下生成图片，然后通过/media这个url来访问它，同时数据库表django_summernote_attachment也会记录
+   不要忘了配置urls.py:
+   url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),

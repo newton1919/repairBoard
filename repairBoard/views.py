@@ -10,6 +10,7 @@ def index(request):
     context = {"role":""}
     company = Company.objects.filter()[0]
     context["company_desc"] = mark_safe(company.desc)
+    context["name"] = company.name
     return shortcuts.render(request, 'index.html', context)
 
 def appliance_index(request, pk):

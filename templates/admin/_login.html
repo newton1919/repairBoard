@@ -1,3 +1,10 @@
-{% extends "base/_form.html" %}
-{% block form_id %}login{% endblock %}
-{% block form_action %}{{ form.form_action }}{% endblock %}
+<form role="form" id="{{form.form_id}}"
+      autocomplete="on"
+      class="{{form.class}}"
+      action="{{ form.form_action }}"
+      method="POST">{% csrf_token %}
+	
+	<fieldset>
+    	{% include "base/_form_fields.html" %}
+    </fieldset>
+</form>

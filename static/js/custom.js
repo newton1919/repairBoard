@@ -75,36 +75,6 @@ $(function(){
     #   Form wizard
     # =============================================================================
     */
-    
-    
-    /*
-    # =============================================================================
-    #   company save
-    # =============================================================================
-    */
-	$('#company').find(".btn-save").click(function(){
-		var id = $(this).attr("id");
-		var desc = $(".note-editable").html();
-		var name = $("#company_edit").find("#company_name").val();
-		var address = $("#company_edit").find("#address").val();
-		var city = $("#company_edit").find("#city").val();
-		var country = $("#company_edit").find("#country").val();
-		var website = $("#company_edit").find("#website").val();
-		var contact_people = $("#company_edit").find("#contact_people").val();
-		var telphone = $("#company_edit").find("#telphone").val();
-		
-		$.post("/admin/company/"+id+"/update", { desc: desc,name:name,address:address,city:city,country:country,website:website,contact_people:contact_people,telphone:telphone },     
-				function (data, textStatus){
-					var ret = data.status;
-					if (ret){
-						location.href = "/admin/company/index";
-					}else {
-						alert(data.message);
-						location.href = "/admin/company/"+id+"/update";
-					}
-						
-				},"json");
-	});
 	
 	/* row action need confirm*/
 	//$('.confirm-message').hide();

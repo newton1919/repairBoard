@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" >
     <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" >
     <link rel="stylesheet" href="{% static 'css/datatables.css' %}" >
-    <link rel="stylesheet" href="{% static 'css/summernote.css' %}" >
     {% block headerCssBlock %}
 	{% endblock %}
 	<link rel="stylesheet" href="{% static 'css/style.css' %}" >
@@ -31,6 +30,7 @@
 	  	{% include 'base/_sidebar.html' %}
 	  	</div>
 	  	<div class="col-lg-9">
+	  	  {% block mainPanel %}
 	  	  <div class="panel panel-black mainPanel">
 	  	    <div class="panel-heading">{% block mainPanelTitle %}{% endblock %}</div>
 	  	    <div class="panel-body">
@@ -38,6 +38,7 @@
 			{% endblock %}
 			</div>
 		  </div>
+		  {% endblock %}
 	  	</div>
 	  </div>
 	</div>
@@ -65,7 +66,6 @@
   	<script src="{% static 'js/datatable-editable.js' %}" type="text/javascript"></script>
   	<script src="{% static 'js/bootstrap-fileupload.js' %}" type="text/javascript"></script>
   	<script src="{% static 'js/jquery.bootstrap.wizard.min.js' %}" type="text/javascript"></script>
-  	<script src="{% static 'js/summernote.min.js' %}" type="text/javascript"></script>
 	{% block headerJsBlock %}
 	{% endblock %}
 	<script src="{% static 'js/custom.js' %}" type="text/javascript"></script>

@@ -5,15 +5,23 @@
 {% block title %}{% trans "Update" %}{% endblock %}
  
 {% block headerCssBlock %}
-  
 {% endblock %}
 
 
-{% block headerJsBlock %}
-  
+{% block headerJsBlock %}  
 {% endblock %}
 
-{% block mainPanelTitle %}
+{% block mainPanel %}
+<form role="form" id="{{form.form_id}}"
+        name="{{form.name}}"
+        autocomplete="{{form.autocomplete}}"
+        class="{{form.class}}"
+        action="/admin/company/{{id}}/update"
+        method="POST"
+>{% csrf_token %}
+<div class="panel panel-black mainPanel">
+<!-- panel header start -->
+<div class="panel-heading">
 <div class="container-fuild" id="company">
 	<div class="row">
 	<div class="col-lg-9">
@@ -25,47 +33,18 @@
 	<div class="col-lg-3">
 	  <div class="btn-group">
 	    <a href="{% url 'admin:company_index' %}" type="button" class="btn btn-default btn-sm btn-cancel">{% trans "cancel" %}</a>
-		<button type="button" id="{{id}}" class="btn btn-primary btn-sm btn-save">{% trans "save" %}</button>
+		<button type="submit" class="btn btn-primary btn-sm btn-save">{% trans "save" %}</button>
 	  </div>
 	</div>
 	</div>
 </div>
-{% endblock %}
-{% block main %}
-    <form role="form" id="company_edit">
-	  <div class="form-group">
-	    <label for="company_name">{% trans "Name" %}</label>
-	    <input type="text" class="form-control" id="company_name" value="{{company_name}}" placeholder="Company name">
-	  </div>
-	  <div class="form-group">
-	    <label for="country">{% trans "Country" %}</label>
-	    <input type="text" class="form-control" id="country" value="{{country}}" placeholder="">
-	  </div>
-	  <div class="form-group">
-	    <label for="city">{% trans "City" %}</label>
-	    <input type="text" class="form-control" id="city" value="{{city}}" placeholder="">
-	  </div>
-	  <div class="form-group">
-	    <label for="address">{% trans "Address" %}</label>
-	    <input type="text" class="form-control" id="address" value="{{address}}" placeholder="">
-	  </div>
-	  <div class="form-group">
-	    <label for="website">{% trans "Website" %}</label>
-	    <input type="text" class="form-control" id="website" value="{{website}}" placeholder="">
-	  </div>
-	  <div class="form-group">
-	    <label for="contact_people">{% trans "Contact people" %}</label>
-	    <input type="text" class="form-control" id="contact_people" value="{{contact_people}}" placeholder="">
-	  </div>
-	  <div class="form-group">
-	    <label for="telphone">{% trans "Telphone" %}</label>
-	    <input type="text" class="form-control" id="telphone" value="{{telphone}}" placeholder="">
-	  </div>
-	  <div class="summernote">
-        {{desc}}
-      </div>
-	</form>
-    
-<!--   	{% include 'admin/_edit.html' %} -->
-    
+</div>
+<!-- panel header end -->
+<div class="panel-body">
+  <fieldset>
+	{% include "base/_form_fields.html" %}
+  </fieldset>
+</div>
+</div>
+</form>    
 {% endblock %}

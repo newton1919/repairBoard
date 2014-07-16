@@ -57,12 +57,12 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(BASE_DIR, "django-summernote")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -190,4 +190,43 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode
+    'iframe': True,  # or set False to use SummernoteInplaceWidget - no iframe mode
+
+    # Using Summernote Air-mode
+    'airMode': False,
+
+    # Change editor size
+    'width': '100%',
+    'height': '580',
+
+    # Use proper language setting automatically (default)
+    'lang': None,
+
+    # Customize toolbar buttons
+#     'toolbar': [
+#         ['style', ['style']],
+#         ['style', ['bold', 'italic', 'underline', 'clear']],
+#         ['para', ['ul', 'ol', 'height']],
+#         ['insert', ['link']],
+#     ],
+
+    # Set `upload_to` function for attachments.
+    #'attachment_upload_to': "summernote.views.my_custom_upload_to_func",
+
+    # Set custom storage class for attachments.
+    #'attachment_storage_class': 'my.custom.storage.class.name',
+
+    # Set external media files for SummernoteInplaceWidget.
+    'inplacewidget_external_css': (                                             
+        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',      
+        '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css',
+    ),                                                                          
+    'inplacewidget_external_js': (                                              
+        '//code.jquery.com/jquery-1.9.1.min.js',                                
+        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',        
+    ),
 }
