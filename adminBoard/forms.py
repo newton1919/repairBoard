@@ -1,8 +1,56 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django.conf import settings
 from .models import Company, Appliance, Appliance_type
+from datetime import datetime
+import os
 
+def handle_uploaded_file(f, pk):
+    upload_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", pk)
+    if not os.path.exists(upload_path):
+        os.makedirs(upload_path)
+    
+    with open(os.path.join(upload_path, str(f)), 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return os.path.join("/static/images/thumbnails", pk, str(f))
+
+class ApplianceCreateForm(forms.Form):
+    input_title = forms.CharField(max_length=60, required=True, label = _('Title'),
+                               widget=forms.TextInput(attrs={"class":"form-control", "placeholder":_('Title')}))
+    #thumbnail = forms.FileField(required=False)
+    content = forms.CharField(initial=_("Title"),
+                              widget=SummernoteWidget())
+    
+    def __init__(self, request=None, pk=None, type2=None, *args, **kwargs):
+        self.request = request
+        self.pk = pk
+        self.type2 = type2
+        super(ApplianceCreateForm, self).__init__(*args, **kwargs)
+    
+    def clean(self):
+        super(ApplianceCreateForm, self).clean()
+        try:
+            title = self.cleaned_data['input_title']
+            content = self.cleaned_data['content']
+            thumbnails = self.request.FILES.get('thumbnail', "")
+            if not thumbnails:
+                thumbnail_after = ""
+            else:
+                thumbnail = thumbnails
+                thumbnail_after = handle_uploaded_file(thumbnail, self.type2)
+            #store into table Appliance
+            create_at = datetime.now()
+            appliance_obj = Appliance(type=self.type2, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
+            appliance_obj.save()
+
+        except Exception, e:
+            print e.message
+            raise forms.ValidationError(_(e.message))
+        return self.cleaned_data
+    
+    
 class CompanyForm(forms.Form):
     company_name = forms.CharField(max_length=60, required=True, label = _('Name'),
                                widget=forms.TextInput(attrs={"class":"form-control", "placeholder":_('Name')}))

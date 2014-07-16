@@ -252,16 +252,6 @@ def appliance_index(request, pk):
     context["table_actions"] = table_actions
     #end
     return shortcuts.render(request, 'admin/appliance/index.html',context)
-
-def handle_uploaded_file(f, pk):
-    upload_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", pk)
-    if not os.path.exists(upload_path):
-        os.makedirs(upload_path)
-    
-    with open(os.path.join(upload_path, str(f)), 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-    return os.path.join("/static/images/thumbnails", pk, str(f))
             
 @login_required
 @admin_required
@@ -270,24 +260,19 @@ def appliance_create(request, pk):
     type2 = appliance_type.type
     print type2
     if request.method == 'POST':
-        title = request.POST.get("title", "")
-        content = request.POST.get("content", "")
-        thumbnails = request.FILES.get('thumbnail', "")
-        if not thumbnails:
-            thumbnail_after = ""
+        form = ApplianceCreateForm(request, pk, type2, data = request.POST)
+        if form.is_valid(): 
+            return shortcuts.redirect("/admin/appliance/"+pk+"/index")
         else:
-            thumbnail = thumbnails
-            thumbnail_after = handle_uploaded_file(thumbnail, type2)
-        #store into table Appliance
-        create_at = datetime.now()
-        print "ddddddddddddddddddddd"
-        appliance_obj = Appliance(type=type2, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
-        appliance_obj.save()
-            
-        return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
+            context = {"type_id": pk, "type": type2}
+            context["role"] = "admin/"
+            context['form'] = form
+            return shortcuts.render(request, 'admin/appliance/create.html', context)
+        ###end 
     else:
         context = {"type_id": pk, "type": type2}
         context["role"] = "admin/"
+        context["form"] = ApplianceCreateForm()
         return shortcuts.render(request, 'admin/appliance/create.html', context)
 
 @login_required

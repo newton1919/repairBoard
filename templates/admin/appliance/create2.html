@@ -1,8 +1,6 @@
 {% load i18n %}
 {% load url from future %}
-<form id="appliance" data-type="{{type_id}}" role="form" action="/admin/appliance/{{type_id}}/create" 
-	  method="POST"
-	  enctype="multipart/form-data">{% csrf_token %}
+<form id="appliance" data-type="{{type_id}}" role="form" action="/admin/appliance/{{type_id}}/create" method="POST">{% csrf_token %}
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="modal-title" id="myModalLabel">{% trans 'Create'%} -- {% trans type%}</h4>
@@ -30,11 +28,11 @@
 	<div class="tab-content">
 	    <div class="tab-pane" id="tab1">
 	      <div class="form-group">
-	      	{{form.input_title.label_tag}}
-	      	{{form.input_title}}
+		    <label for="input_title">{% trans 'Title'%}</label>
+		    <input type="text" class="form-control" id="input_title" name="input_title" placeholder="{% trans 'Title'%}">
 		  </div>
 		  <div class="form-group">
-		    <label for="thumbnail">{% trans 'Thumbnail'%}</label>
+		    <label for="input_thumbnail">{% trans 'Thumbnail'%}</label>
 		    <div class="container-fuild">
 		      <div class="row">
 		        <div class="col-lg-6">
@@ -48,7 +46,6 @@
 	                    <span class="fileupload-new">{% trans 'Select image'%}</span>
 	                    <span class="fileupload-exists">{% trans 'Change'%}</span>
 	                    <input type="file" name="thumbnail" id="thumbnail">
-<!-- 	                    {{form.thumbnail}} -->
 	                  </span>
 	                  <a class="btn btn-default fileupload-exists" data-dismiss="fileupload" href="#">{% trans 'Remove'%}</a>
 	                </div>
@@ -61,9 +58,7 @@
 		  </div>
 	    </div>
 	    <div class="tab-pane" id="tab2">
-	      <div class="form-group" style="height:600px">
-	      {{form.content}}
-	      </div>
+	      <input class="summernote"/>
 	    </div>
 		
 	</div>	
@@ -73,7 +68,7 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'cancel'%}</button>
-  <button type="submit" class="btn btn-primary btn-save">{% trans 'save'%}</button>
+  <button type="button" class="btn btn-primary btn-save">{% trans 'save'%}</button>
 </div>
 </form>
 
@@ -96,14 +91,51 @@ $(function(){
 				previousSelector:".btn-previous",
 				onNext: function(tab, navigation, index) {
 			        if (index === 1) {
-			          if (!$("#id_input_title").val()) {
-			            $("#id_input_title").focus();
-			            $("#id_input_title").addClass("has-error");
+			          if (!$("#input_title").val()) {
+			            $("#input_title").focus();
+			            $("#input_title").addClass("has-error");
 			            return false;
 			          }
 			        }
 			        return true;
 			 	},
+	});
+	if ($('.summernote').length) {
+	      $('.summernote').summernote({
+	        height: 600,
+	        focus: true,
+	        toolbar: [['style', ['style']], ['style', ['bold', 'italic', 'underline', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['insert', ['picture', 'link']], ['table', ['table']], ['fullscreen', ['fullscreen']]]
+	      });
+	};
+	//save text
+	$('#appliance').find('.btn-save').click(function(){
+		var type = $('#appliance').attr("data-type");
+		var title = $("#input_title").val();
+		var thumbnail = $('#thumbnail')[0].files[0];
+		var content = $(".note-editable").html();
+		var formData = new FormData();
+		formData.append("title", title);
+		formData.append("thumbnail",thumbnail);
+		formData.append("content",content);
+ 		$.ajax({
+ 				type: "POST",
+ 				url:"/admin/appliance/"+type+"/create",
+ 				//Options to tell jQuery not to process data or worry about content-type.
+ 		        cache: false,
+ 		        contentType: false,
+ 		        processData: false,
+				data: formData,     
+				success:function (data, textStatus){
+					var ret = data.status;
+					if (ret){
+						location.href = "/admin/appliance/"+type+"/index";
+					}else {
+						alert("error");
+					}
+						
+				},
+ 				dataType:"json"
+ 		});
 	});
 });
 </script>
