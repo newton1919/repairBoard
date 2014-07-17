@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
@@ -49,7 +50,54 @@ class ApplianceCreateForm(forms.Form):
             print e.message
             raise forms.ValidationError(_(e.message))
         return self.cleaned_data
+
+class ApplianceUpdateForm(forms.Form):
+    input_title = forms.CharField(max_length=60, required=True, label = _('Title'),
+                               widget=forms.TextInput(attrs={"class":"form-control", "placeholder":_('Title')}))
+    #thumbnail = forms.FileField(required=False)
+    content = forms.CharField(widget=SummernoteWidget())
     
+    def __init__(self, request=None, pk=None, type2=None, appliance_id=None, *args, **kwargs):
+        self.request = request
+        self.pk = pk
+        self.type2 = type2
+        self.appliance_id = appliance_id
+        super(ApplianceUpdateForm, self).__init__(*args, **kwargs)
+    
+    def clean(self):
+        super(ApplianceUpdateForm, self).clean()
+        try:
+            title = self.cleaned_data['input_title']
+            content = self.cleaned_data['content']
+            thumbnails = self.request.FILES.get('thumbnail', "")
+            if not thumbnails:
+                #缩略图没有改变
+                thumbnail_after = ""
+            else:
+                #缩略图改变
+                thumbnail = thumbnails
+                thumbnail_after = handle_uploaded_file(thumbnail, self.type2)
+                #删除原来的缩略图
+                current_appliance = Appliance.objects.get(id = self.appliance_id)
+                static_path = current_appliance.thumbnail
+                thumbnail_name = os.path.basename(static_path)
+                thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", self.type2, thumbnail_name)
+                if os.path.exists(thumbnail_path):
+                    os.remove(thumbnail_path)
+            #update table Appliance
+            update_at = datetime.now()
+            current_appliance = Appliance.objects.get(id = self.appliance_id)
+            current_appliance.title = title
+            current_appliance.content = content
+            current_appliance.update_at = update_at
+            if thumbnail_after:
+                current_appliance.thumbnail = thumbnail_after
+            current_appliance.save()
+
+        except Exception, e:
+            print e.message
+            raise forms.ValidationError(_(e.message))
+        return self.cleaned_data
     
 class CompanyForm(forms.Form):
     company_name = forms.CharField(max_length=60, required=True, label = _('Name'),

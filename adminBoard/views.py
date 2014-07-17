@@ -349,7 +349,7 @@ def appliance_single_delete(request, pk, appliance_id):
 
 @login_required
 @admin_required
-def appliance_single_update(request, pk, appliance_id):
+def appliance_single_update_old(request, pk, appliance_id):
     appliance_type = Appliance_type.objects.get(id = pk)
     type2 = appliance_type.type
     if request.method == 'POST':
@@ -391,4 +391,35 @@ def appliance_single_update(request, pk, appliance_id):
         context["title"] = appliance.title
         context["content"] = mark_safe(appliance.content)
         context["thumbnail_path"] = appliance.thumbnail
+        return shortcuts.render(request, 'admin/appliance/update.html', context)
+
+@login_required
+@admin_required
+def appliance_single_update(request, pk, appliance_id):
+    appliance_type = Appliance_type.objects.get(id = pk)
+    type2 = appliance_type.type
+    if request.method == 'POST':
+        form = ApplianceUpdateForm(request, pk, type2, appliance_id, data = request.POST)
+        if form.is_valid(): 
+            return shortcuts.redirect("/admin/appliance/"+pk+"/index")
+        else:
+            appliance = Appliance.objects.get(id = appliance_id)
+            context = {"type_id": pk, "type": type2}
+            context["appliance_id"] = appliance_id
+            context["role"] = "admin/"
+            context["thumbnail_path"] = appliance.thumbnail
+            context["form"] = form
+            return shortcuts.render(request, 'admin/appliance/update.html', context)
+        ##end
+    else:
+        appliance = Appliance.objects.get(id = appliance_id)
+        context = {"type_id": pk, "type": type2}
+        context["appliance_id"] = appliance_id
+        context["role"] = "admin/"
+        initial_data = {}
+        initial_data["input_title"] = appliance.title
+        initial_data["content"] = mark_safe(appliance.content)
+        context["thumbnail_path"] = appliance.thumbnail
+        form = ApplianceUpdateForm(initial = initial_data)
+        context["form"] = form
         return shortcuts.render(request, 'admin/appliance/update.html', context)
