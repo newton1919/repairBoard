@@ -14,6 +14,7 @@ urlpatterns = patterns('adminBoard',
     url(r'^appliance/(?P<pk>[^/]+)/index$', views.appliance_index, name='appliance_index'),
     url(r'^appliance/(?P<pk>[^/]+)/create$', views.appliance_create, name='appliance_create'),
     url(r'^appliance/(?P<pk>[^/]+)/view$', views.appliance_view, name='appliance_view'),
+    url(r'^appliance/(?P<pk>[^/]+)/delete$', views.appliance_multi, name='appliance_multi'),
     
     url(r'^appliance/(?P<pk>[^/]+)/(?P<appliance_id>[^/]+)/view$', views.appliance_single_view, name='appliance_single_view'),
     url(r'^appliance/(?P<pk>[^/]+)/(?P<appliance_id>[^/]+)/delete$', views.appliance_single_delete, name='appliance_single_delete'),

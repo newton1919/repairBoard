@@ -204,7 +204,10 @@ def appliance_index_orig(request):
         return shortcuts.render(request, 'admin/appliance/index_none.html',context)
     else:
         return shortcuts.redirect("/admin/appliance/"+str(type_list[0].id)+"/index")
-    
+
+def appliance_multi(request, pk):
+    return shortcuts.HttpResponse(u"该功能尚未提供")
+        
 @login_required
 @admin_required
 def appliance_index(request, pk):
