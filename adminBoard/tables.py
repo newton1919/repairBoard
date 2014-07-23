@@ -59,6 +59,7 @@ class TableDeleteAppliance(object):
     verbose_name = _("Delete")
     name = "delete"
     icon = "icon-trash"
+    classes = "btn-danger"
         
     def allowed(self, request, obj):
         return True

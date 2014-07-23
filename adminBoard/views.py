@@ -206,7 +206,20 @@ def appliance_index_orig(request):
         return shortcuts.redirect("/admin/appliance/"+str(type_list[0].id)+"/index")
 
 def appliance_multi(request, pk):
-    return shortcuts.HttpResponse(u"该功能尚未提供")
+    #appliance_type = pk
+    delete_list = request.POST.get('delete_list', None)
+    if not delete_list:
+        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':_('delete_list must not be none')}))
+    try:
+        delete_list = json.loads(delete_list)
+        appliance_type = Appliance_type.objects.get(id = pk)
+        type2 = appliance_type.type
+        for del_obj in delete_list:
+            obj = Appliance.objects.filter(type = type2, id = del_obj)
+            obj.delete()
+        return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
+    except Exception,e:
+        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
         
 @login_required
 @admin_required
