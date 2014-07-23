@@ -7,3 +7,13 @@
    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
         }),
+
+3、index.py, app.conf只需修改一次，以后版本更新时无需改动
+4、需不需要将django_summernote app中的templates拉出来放到最外层的templates文件夹中呢？需要测试，感觉不需要，其余无需改动，直接从开发环境将templates目录拷贝过来即可。
+5、在开发环境执行静态文件收集，然后将最外层static目录拷贝过来即可
+6、repairBoard目录拷贝过来，但是注意settings.py要修改，修改DEBUG = False，数据库修改成连接bae的数据库，注意allowhost需要配置，否则debug false时总是500错误，
+   urls.py注意static文件访问在debug=false的情况下也需要配置url，和media一样，否则debug false下static文件找不到。
+
+7、django_summernote目录直接从开发环境拷贝过来，我们做了少许修改
+8、common目录直接拷贝过来
+9、adminBoard目录直接拷贝过来
