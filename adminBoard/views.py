@@ -355,7 +355,7 @@ def appliance_single_delete(request, pk, appliance_id):
     obj = Appliance.objects.get(type = type2, id = appliance_id)
     static_path = obj.thumbnail
     thumbnail_name = os.path.basename(static_path)
-    thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", type2, thumbnail_name)
+    thumbnail_path = os.path.join(settings.BASE_DIR, "django-summernote", "images/thumbnails", type2, thumbnail_name)
     if os.path.exists(thumbnail_path):
         os.remove(thumbnail_path)
     #删除对应的缩略图
@@ -383,7 +383,7 @@ def appliance_single_update_old(request, pk, appliance_id):
             current_appliance = Appliance.objects.get(id = appliance_id)
             static_path = current_appliance.thumbnail
             thumbnail_name = os.path.basename(static_path)
-            thumbnail_path = os.path.join(settings.BASE_DIR, "static", "images/thumbnails", type2, thumbnail_name)
+            thumbnail_path = os.path.join(settings.BASE_DIR, "django-summernote", "images/thumbnails", type2, thumbnail_name)
             if os.path.exists(thumbnail_path):
                 os.remove(thumbnail_path)
         #update table Appliance
