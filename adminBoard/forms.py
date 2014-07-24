@@ -8,7 +8,7 @@ from datetime import datetime
 import os
 
 def handle_uploaded_file(f, pk):
-    upload_path = os.path.join(settings.BASE_DIR, "django-summernote", "images/thumbnails", pk)
+    upload_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", pk)
     if not os.path.exists(upload_path):
         os.makedirs(upload_path)
     
@@ -81,7 +81,7 @@ class ApplianceUpdateForm(forms.Form):
                 current_appliance = Appliance.objects.get(id = self.appliance_id)
                 static_path = current_appliance.thumbnail
                 thumbnail_name = os.path.basename(static_path)
-                thumbnail_path = os.path.join(settings.BASE_DIR, "django-summernote", "images/thumbnails", self.type2, thumbnail_name)
+                thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", self.type2, thumbnail_name)
                 if os.path.exists(thumbnail_path):
                     os.remove(thumbnail_path)
             #update table Appliance

@@ -1,3 +1,5 @@
 *.pyc
 static/images/thumbnails
 sqlite.db
+django-summernote/django-summernote/*
+django-summernote/images/*

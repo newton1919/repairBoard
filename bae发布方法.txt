@@ -17,3 +17,4 @@
 7、django_summernote目录直接从开发环境拷贝过来，我们做了少许修改
 8、common目录直接拷贝过来
 9、adminBoard目录直接拷贝过来
+10、django-summernote是media目录，直接拷贝过来
