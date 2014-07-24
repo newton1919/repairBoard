@@ -15,7 +15,7 @@ def handle_uploaded_file(f, pk):
     with open(os.path.join(upload_path, str(f)), 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    return os.path.join("/django-summernote/images/thumbnails", pk, str(f))
+    return os.path.join("/media/images/thumbnails", pk, str(f))
 
 class ApplianceCreateForm(forms.Form):
     input_title = forms.CharField(max_length=60, required=True, label = _('Title'),

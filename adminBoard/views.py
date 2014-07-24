@@ -215,7 +215,13 @@ def appliance_multi(request, pk):
         appliance_type = Appliance_type.objects.get(id = pk)
         type2 = appliance_type.type
         for del_obj in delete_list:
-            obj = Appliance.objects.filter(type = type2, id = del_obj)
+            obj = Appliance.objects.get(type = type2, id = del_obj)
+            #删除缩略图
+            static_path = obj.thumbnail
+            thumbnail_name = os.path.basename(static_path)
+            thumbnail_path = os.path.join(settings.BASE_DIR, "django-summernote", "images/thumbnails", type2, thumbnail_name)
+            if os.path.exists(thumbnail_path):
+                os.remove(thumbnail_path)
             obj.delete()
         return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     except Exception,e:
