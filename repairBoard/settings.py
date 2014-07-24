@@ -286,6 +286,10 @@ SUMMERNOTE_CONFIG = {
         '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',        
     ),
 }
-
+try:
+    from local.local_settings import *  # noqa
+except ImportError:
+    logging.warning("No local_settings file found.")
+    
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG)

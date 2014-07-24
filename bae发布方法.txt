@@ -13,6 +13,7 @@
 5、在开发环境执行静态文件收集，然后将最外层static目录拷贝过来即可
 6、repairBoard目录拷贝过来，但是注意settings.py要修改，修改DEBUG = False，数据库修改成连接bae的数据库，注意allowhost需要配置，否则debug false时总是500错误，
    urls.py注意static文件访问在debug=false的情况下也需要配置url，和media一样，否则debug false下static文件找不到。
+   更新：采用import local setting的方法，这样setting.py文件无需改动，直接拷贝repairboard目录即可
 
 7、django_summernote目录直接从开发环境拷贝过来，我们做了少许修改
 8、common目录直接拷贝过来
