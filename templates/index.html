@@ -3,7 +3,9 @@
 {% block title %}{% trans "Company" %}{% endblock %}
 
 
-{% block mainPanelTitle %}{% trans "Company" %}{% endblock %}
+{% block mainPanelTitle %}
+  <span class="label label-danger" style="font-size:15px;"><strong>{% trans "Company" %}</strong></span>
+{% endblock %}
 {% block main %}
 	<div style="text-align:center;font-size:20px"><strong>{{name}}</strong></div>
     {{company_desc}}
