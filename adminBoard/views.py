@@ -20,6 +20,8 @@ from common.decorators import login_required, admin_required
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from common.tables import Column
 import json,os
+import logging
+LOG = logging.getLogger(__name__)
 
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=30, required=True, 
@@ -225,7 +227,7 @@ def appliance_multi(request, pk):
             obj.delete()
         return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     except Exception,e:
-        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
+        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.args[1]}))
         
 @login_required
 @admin_required
@@ -404,7 +406,7 @@ def appliance_single_update_old(request, pk, appliance_id):
             current_appliance.save()
             return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
         except Exception,e:
-            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
+            return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.args[1]}))
     else:
         appliance = Appliance.objects.get(id = appliance_id)
         context = {"type_id": pk, "type": type2}

@@ -6,6 +6,8 @@ from django.conf import settings
 from .models import Company, Appliance, Appliance_type
 from datetime import datetime
 import os
+import logging
+LOG = logging.getLogger(__name__)
 
 def handle_uploaded_file(f, pk):
     upload_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", pk)
@@ -47,8 +49,8 @@ class ApplianceCreateForm(forms.Form):
             appliance_obj.save()
 
         except Exception, e:
-            print e.message
-            raise forms.ValidationError(_(e.message))
+            LOG.error(e.args)
+            raise forms.ValidationError(_(e.args[1]))
         return self.cleaned_data
 
 class ApplianceUpdateForm(forms.Form):
@@ -95,8 +97,8 @@ class ApplianceUpdateForm(forms.Form):
             current_appliance.save()
 
         except Exception, e:
-            print e.message
-            raise forms.ValidationError(_(e.message))
+            LOG.error(e.args)
+            raise forms.ValidationError(_(e.args[1]))
         return self.cleaned_data
     
 class CompanyForm(forms.Form):
@@ -149,7 +151,8 @@ class CompanyForm(forms.Form):
             company.telphone = telphone
             company.save()
         except Exception, e:
-            raise forms.ValidationError(_(e.message))
+            LOG.error(e.args)
+            raise forms.ValidationError(_(e.args[1]))
         return self.cleaned_data
     
 class ApplianceTypeForm(forms.Form):
