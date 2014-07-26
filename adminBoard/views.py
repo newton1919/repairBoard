@@ -220,14 +220,15 @@ def appliance_multi(request, pk):
             obj = Appliance.objects.get(type = type2, id = del_obj)
             #删除缩略图
             static_path = obj.thumbnail
-            thumbnail_name = os.path.basename(static_path)
-            thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", type2, thumbnail_name)
-            if os.path.exists(thumbnail_path):
-                os.remove(thumbnail_path)
+            if static_path:
+                thumbnail_name = os.path.basename(static_path)
+                thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", type2, thumbnail_name)
+                if os.path.exists(thumbnail_path):
+                    os.remove(thumbnail_path)
             obj.delete()
         return shortcuts.HttpResponse(json.dumps({'status':True, 'message':""}))
     except Exception,e:
-        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.args[1]}))
+        return shortcuts.HttpResponse(json.dumps({'status':False, 'message':e.message}))
         
 @login_required
 @admin_required
@@ -362,10 +363,11 @@ def appliance_single_delete(request, pk, appliance_id):
     context["role"] = "admin/"
     obj = Appliance.objects.get(type = type2, id = appliance_id)
     static_path = obj.thumbnail
-    thumbnail_name = os.path.basename(static_path)
-    thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", type2, thumbnail_name)
-    if os.path.exists(thumbnail_path):
-        os.remove(thumbnail_path)
+    if static_path:
+        thumbnail_name = os.path.basename(static_path)
+        thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", type2, thumbnail_name)
+        if os.path.exists(thumbnail_path):
+            os.remove(thumbnail_path)
     #删除对应的缩略图
     obj.delete()
     

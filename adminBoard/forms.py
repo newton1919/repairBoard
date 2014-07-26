@@ -13,11 +13,10 @@ def handle_uploaded_file(f, pk):
     upload_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", pk)
     if not os.path.exists(upload_path):
         os.makedirs(upload_path)
-    
-    with open(os.path.join(upload_path, str(f)), 'wb+') as destination:
+    with open(os.path.join(upload_path, f._name), 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    return os.path.join("/media/images/thumbnails", pk, str(f))
+    return os.path.join("/media/images/thumbnails", pk, f._name)
 
 class ApplianceCreateForm(forms.Form):
     input_title = forms.CharField(max_length=60, required=True, label = _('Title'),
@@ -47,10 +46,10 @@ class ApplianceCreateForm(forms.Form):
             create_at = datetime.now()
             appliance_obj = Appliance(type=self.type2, title=title, thumbnail=thumbnail_after, content=content, create_at=create_at, update_at=create_at)
             appliance_obj.save()
-
+ 
         except Exception, e:
             LOG.error(e.args)
-            raise forms.ValidationError(_(e.args[1]))
+            raise forms.ValidationError(e.args)
         return self.cleaned_data
 
 class ApplianceUpdateForm(forms.Form):
@@ -82,10 +81,11 @@ class ApplianceUpdateForm(forms.Form):
                 #删除原来的缩略图
                 current_appliance = Appliance.objects.get(id = self.appliance_id)
                 static_path = current_appliance.thumbnail
-                thumbnail_name = os.path.basename(static_path)
-                thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", self.type2, thumbnail_name)
-                if os.path.exists(thumbnail_path):
-                    os.remove(thumbnail_path)
+                if static_path:
+                    thumbnail_name = os.path.basename(static_path)
+                    thumbnail_path = os.path.join(settings.MEDIA_ROOT, "images/thumbnails", self.type2, thumbnail_name)
+                    if os.path.exists(thumbnail_path):
+                        os.remove(thumbnail_path)
             #update table Appliance
             update_at = datetime.now()
             current_appliance = Appliance.objects.get(id = self.appliance_id)
@@ -98,7 +98,7 @@ class ApplianceUpdateForm(forms.Form):
 
         except Exception, e:
             LOG.error(e.args)
-            raise forms.ValidationError(_(e.args[1]))
+            raise forms.ValidationError(e.args)
         return self.cleaned_data
     
 class CompanyForm(forms.Form):
@@ -152,7 +152,7 @@ class CompanyForm(forms.Form):
             company.save()
         except Exception, e:
             LOG.error(e.args)
-            raise forms.ValidationError(_(e.args[1]))
+            raise forms.ValidationError(e.args)
         return self.cleaned_data
     
 class ApplianceTypeForm(forms.Form):
