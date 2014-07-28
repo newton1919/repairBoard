@@ -45,3 +45,12 @@ class Appliance_type(models.Model):
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.type
+    
+class Visitor(models.Model):
+    ip = models.CharField(max_length=20)
+    location = models.CharField(max_length=20)
+    brower_type = models.CharField(max_length=150)
+    session_id = models.CharField(max_length=100)
+    guest_type = models.CharField(max_length=10)
+    create_at = models.CharField(max_length=50)
+    update_at = models.CharField(max_length=50)
