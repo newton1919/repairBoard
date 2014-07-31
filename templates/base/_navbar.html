@@ -19,7 +19,7 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="/{{role}}"><i class="icon-home"></i> <strong>{%trans 'Home'%}</strong></a></li>
+              <li><a href="{% url 'gallery:index' %}"><i class="icon-home"></i> <strong>{%trans 'Home'%}</strong></a></li>
               <li><a href="/{{role}}company/contact"><i class="icon-comments"></i> <strong>{%trans 'Contact'%}</strong></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-laptop"></i> <strong>{%trans 'Appliance'%}</strong> <b class="caret"></b></a>

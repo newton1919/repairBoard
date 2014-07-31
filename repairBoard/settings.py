@@ -155,6 +155,7 @@ INSTALLED_APPS = (
     'django_summernote',
     'adminBoard',
     'repairBoard',
+    'gallery',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
