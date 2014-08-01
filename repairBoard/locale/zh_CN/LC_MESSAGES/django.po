@@ -21,6 +21,12 @@ msgstr ""
 msgid "Home"
 msgstr "首页"
 
+msgid "Gallery"
+msgstr "相册"
+
+msgid "Borderless"
+msgstr "边框"
+
 msgid "Contact"
 msgstr "联系方式"
 
@@ -203,6 +209,9 @@ msgstr "没有缩略图"
 
 #: templates/admin/appliance/create.html
 msgid "Back"
+msgstr "后退"
+
+msgid "Previous"
 msgstr "后退"
 
 msgid "Next"
